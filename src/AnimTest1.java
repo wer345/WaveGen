@@ -1,0 +1,48 @@
+import java.awt.Color;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
+
+import Physics.Line;
+import Physics.Point;
+import View.VBase;
+import View.VLine;
+
+
+public class AnimTest1 extends Animation {
+	private static final long serialVersionUID = 1L;
+
+	private int y = 0;
+
+	Point p1= new Point(100,100);
+	Point p2= new Point(200,200);
+	Point p3= new Point(300,100);
+	Line l1= new Line(p1,p2);
+	Line l2= new Line(p2,p3);
+	
+	void setup() {
+		frametime=20;
+	    frame.setSize(800, 600);
+	    
+	    VLine vl1=new VLine(l1);
+	    vl1.setColor(Color.blue);
+	    vl1.setSize(5);
+		views.add(vl1);
+	    VLine vl2=new VLine(l2);
+	    vl2.setColor(Color.green);
+	    vl2.setSize(10);
+		views.add(vl2);
+	}
+
+	void loop()
+	{
+		p2.y+=5;
+		if(p2.y>300)
+			p2.y=0;
+		p3.y+=1;
+	}
+	
+	public static void main(String[] args) {
+		start(new AnimTest1());
+	}
+}
