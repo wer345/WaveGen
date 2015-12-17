@@ -17,7 +17,7 @@ public class VLine extends VBase {
 	{
 		g.setColor(color);
 		g.setStroke(new BasicStroke(nofPixel(size)));
-	    g.drawLine((int)line.p1.x, (int)line.p1.y, (int)line.p2.x,(int) line.p2.y);
+	    g.drawLine(xPixel(line.p1.x), yPixel(line.p1.y), xPixel(line.p2.x),yPixel(line.p2.y));
 	}
 
 }

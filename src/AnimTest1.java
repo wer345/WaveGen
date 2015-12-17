@@ -5,6 +5,7 @@ import java.util.List;
 
 import Physics.Line;
 import Physics.Point;
+import View.Range;
 import View.VBase;
 import View.VLine;
 
@@ -22,8 +23,10 @@ public class AnimTest1 extends Animation {
 	
 	void setup() {
 		frametime=20;
-	    frame.setSize(800, 600);
-	    
+	    //frame.setSize(800, 600);
+		setWindow(600,400);
+	    VBase.rangeDefault= new Range(100,-1000,350,4000);
+		
 	    VLine vl1=new VLine(l1);
 	    vl1.setColor(Color.blue);
 	    vl1.setSize(5);

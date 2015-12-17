@@ -29,6 +29,10 @@ public class Animation extends JPanel {
     new RectRunnable();
   }
 
+  public void setWindow(int width, int height ) {
+	    frame.setSize(width+25, height+50);
+	    VBase.setWindow(width,height);
+  }
 
   void setup() {
 	  
@@ -51,9 +55,10 @@ public class Animation extends JPanel {
 	    JFrame frame = obj.frame;
 	    frame.add(obj);
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    frame.setSize(600, 400);
+//	    frame.setSize(600, 400);
 	    frame.setLocationRelativeTo(null);
 	    frame.setVisible(true);
+	    obj.setWindow(600,300);
 	    obj.setup();
   }
   
