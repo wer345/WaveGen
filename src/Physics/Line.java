@@ -8,5 +8,8 @@ public class Line {
 		p2=_P2;
 	}
 	
-	
+	public Line(double x1, double y1,double x2, double y2) {
+		p1=new Point(x1,y1);
+		p2=new Point(x2,y2);
+	}
 }

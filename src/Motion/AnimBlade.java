@@ -1,3 +1,6 @@
+package Motion;
+
+
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -5,12 +8,13 @@ import java.util.List;
 
 import Physics.Line;
 import Physics.Point;
+import View.UI;
 import View.Range;
 import View.VBase;
 import View.VLine;
 
 
-public class AnimBlade extends Animation {
+public class AnimBlade extends UI {
 	private static final long serialVersionUID = 1L;
 
 	private int y = 0;
@@ -32,7 +36,7 @@ public class AnimBlade extends Animation {
 	double angleMax=2*Math.PI;
 	double step=0.01*Math.PI;
 	
-	void setup() {
+	public void setup() {
 		frametime=20;
 	    //frame.setSize(800, 600);
 		setWindow(500,500);
@@ -47,7 +51,7 @@ public class AnimBlade extends Animation {
 	    	double x=r1*Math.cos(a)+r2*Math.cos(0.5*a);
 	    	double y=r1*Math.sin(a)+r2*Math.sin(0.5*a);
 			Point p= new Point(x,y);
-			views.add(new VLine(new Line(lastPoint,p)));
+			addView(new VLine(new Line(lastPoint,p)));
 			lastPoint=p;
 	    }
 		
@@ -69,21 +73,23 @@ public class AnimBlade extends Animation {
 	    VLine vl1=new VLine(l1);
 	    vl1.setColor(Color.blue);
 	    vl1.setSize(5);
-		views.add(vl1);
+		addView(vl1);
 		
 	    //create the second line and add it to the view
 	    VLine vl2=new VLine(l2);
 	    vl2.setColor(Color.green);
 	    vl2.setSize(2);
-		views.add(vl2);
+		addView(vl2);
 	}
 
 	double angle=0;
-	void loop()
+	
+	public void loop()
 	{
 		//change the poistion of 3 points for each frame
 		if (angle>angleMax) {
-			angle-=angleMax;
+			stop();
+			//angle-=angleMax;
 		}
 		
 		p2.x=r1*Math.cos(angle);

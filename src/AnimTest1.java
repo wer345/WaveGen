@@ -5,12 +5,13 @@ import java.util.List;
 
 import Physics.Line;
 import Physics.Point;
+import View.UI;
 import View.Range;
 import View.VBase;
 import View.VLine;
 
 
-public class AnimTest1 extends Animation {
+public class AnimTest1 extends UI {
 	private static final long serialVersionUID = 1L;
 
 	private int y = 0;
@@ -21,7 +22,7 @@ public class AnimTest1 extends Animation {
 	Line l1= new Line(p1,p2);
 	Line l2= new Line(p2,p3);
 	
-	void setup() {
+	public void setup() {
 		frametime=20;
 	    //frame.setSize(800, 600);
 		setWindow(600,400);
@@ -30,14 +31,14 @@ public class AnimTest1 extends Animation {
 	    VLine vl1=new VLine(l1);
 	    vl1.setColor(Color.blue);
 	    vl1.setSize(5);
-		views.add(vl1);
+		addView(vl1);
 	    VLine vl2=new VLine(l2);
 	    vl2.setColor(Color.green);
 	    vl2.setSize(10);
-		views.add(vl2);
+		addView(vl2);
 	}
 
-	void loop()
+	public void loop()
 	{
 		p2.y+=5;
 		if(p2.y>300)

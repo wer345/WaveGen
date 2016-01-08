@@ -1,3 +1,6 @@
+package View;
+
+
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,22 +13,20 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import View.VBase;
+public class UI extends JPanel {
 
-public class Animation extends JPanel {
-	  //interface void setup();
-
+	static boolean stopped=false;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	public int frametime=50;
 	public JFrame frame =new JFrame("Aniamtion");
-	Graphics2D g;
-	List <VBase> views = new ArrayList <VBase>(); 
+	public Graphics2D g;
+	private List <VBase> views = new ArrayList <VBase>(); 
 	
 
-  public Animation() {
+  public UI() {
     new RectRunnable();
   }
 
@@ -34,24 +35,31 @@ public class Animation extends JPanel {
 	    VBase.setWindow(width,height);
   }
 
-  void setup() {
+  public void setup() {
 	  
   }
   
-  void loop() {
-	  
+  public void loop() {
+	  stop();
   }
+  
+  public void addView(VBase view) {
+	  views.add(view);
+  }
+  
   public void paint(Graphics _g) {
     super.paint(_g);
     g = (Graphics2D) _g;
     VBase.g=g;
-    loop();
+    if(!stopped)
+    	loop();
 	for(VBase vb:views)
 		vb.draw();
     
   }
 
-  static void start(Animation obj) {
+  // start animation
+  static public void start(UI obj) {
 	    JFrame frame = obj.frame;
 	    frame.add(obj);
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,8 +70,13 @@ public class Animation extends JPanel {
 	    obj.setup();
   }
   
+  // stop animation
+  static public void stop() {
+	  stopped=true;
+  }
+  
   public static void main_0(String[] args) {
-	  start(new Animation());
+	  start(new UI());
   }
   
 
@@ -76,7 +89,7 @@ public class Animation extends JPanel {
     }
 
     public void run() {
-      while (true) {
+      while (!stopped) {
         repaint();
         try {
           Thread.sleep(frametime);
