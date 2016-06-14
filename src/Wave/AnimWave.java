@@ -18,9 +18,14 @@ public class AnimWave extends UI {
 	private int y = 0;
 	WaveData d=new WaveData();
 	
-	Line l1= new Line(d.crankCenter,d.crankP1);
-	Line l2= new Line(d.crankCenter,d.crankP2);
+	Line crank1= new Line(d.crankCenter,d.crankP1);
+	Line crank2= new Line(d.crankCenter,d.crankP2);
 	
+	Line pivot1= new Line(d.pivotCenter,d.pivotP1);
+	Line pivot2= new Line(d.pivotCenter,d.pivotP2);
+	
+	Line pivotDrive1= new Line(d.crankP1,d.pivotP1);
+	Line pivotDrive2= new Line(d.crankP2,d.pivotP2);
 	
 	public void setup() {
 		frametime=20;
@@ -30,7 +35,7 @@ public class AnimWave extends UI {
 		double originX=0.2; // x position of origin in the Window, 0 - left edge, 1 - right edge
 		double originY=0.2; // y position of origin in the Window, 0 - bottom edge, 1 - top edge
 		
-		double physicXsize=1000; // the physic size in x the windows shows.
+		double physicXsize=500; // the physic size in x the windows shows.
 		
 		setWindow(pixWindowX,pixWindowY);
 		
@@ -39,19 +44,29 @@ public class AnimWave extends UI {
 	    VBase.rangeDefault= new Range(-originX*physicXsize,-originY*physicXsize*windowYXRate,
 	    		(1-originX)*physicXsize,(1-originY)*physicXsize*windowYXRate);
 		
-	    VLine vl1=new VLine(l1);
-	    vl1.setColor(Color.blue);
-	    vl1.setSize(2);
-		addView(vl1);
-	    VLine vl2=new VLine(l2);
-	    vl2.setColor(Color.green);
-	    vl2.setSize(3);
-		addView(vl2);
+	    Line [] lineset1= {crank1,pivot1,pivotDrive1};
+	    
+	    for( Line line:lineset1) {
+		    VLine vl1=new VLine(line);
+		    vl1.setColor(Color.blue);
+		    vl1.setSize(2);
+			addView(vl1);
+	    }
+		
+	    Line [] lineset2= {crank2,pivot2,pivotDrive2};
+	    
+	    for( Line line:lineset2) {
+		    VLine vl2=new VLine(line);
+		    vl2.setColor(Color.green);
+		    vl2.setSize(3);
+			addView(vl2);
+	    }
 	}
 
 	public void loop()
 	{
-		d.next();
+		if(!d.next())
+			d.start();
 	}
 	
 	public static void main(String[] args) {
