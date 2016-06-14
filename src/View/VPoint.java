@@ -3,8 +3,14 @@ package View;
 import Physics.Point;
 
 public class VPoint extends VBase {
+	Point point;
 	
-	VPoint(Point point) {
-		location=point;
+	public VPoint(Point point) {
+		this.point=point;
 	}
+
+	public VPoint(double x, double y) {
+		this.point=new Point(x,y);
+	}
+	
 }

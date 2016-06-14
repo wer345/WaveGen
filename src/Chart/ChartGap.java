@@ -33,7 +33,7 @@ public class ChartGap extends UI {
 		frametime=20;
 	    //frame.setSize(800, 600);
 		setWindow(700,500);
-	    VBase.rangeDefault= new Range(-1.1*range,-0.2,1.1*range,1.0);
+	    VBase.rangeDefault= new Range(-1.1*range,-0.1,1.1*range,1.1);
 	    
 
 	    // show the grid

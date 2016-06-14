@@ -10,12 +10,14 @@ public class VBase {
 	static int windowWidth=600;
 	static public Range rangeDefault=new Range(0,0,windowWidth,windowHeight); // the points of left bottom, and right upper
 	
-	public Point location;
+	//public Point location;
 	float size;
 	Color color;
 	Range range;
 	double rx;
 	double ry;
+	Move moveTo=null;			// move to Parents
+	Move moveToAbsolute=null;	// move to the screen
 	
 	public VBase() {
 		setValueRange(rangeDefault);
