@@ -43,8 +43,17 @@ public class WaveData {
 				crankCenter.x +crankRadius*Math.cos(crankAngle+angle90),
 				crankCenter.y + crankRadius*Math.sin(crankAngle+angle90));
 		
-		pivotP1.set(crankP1.x+pivotDriveLength,crankP1.y);
-		pivotP2.set(crankP2.x+pivotDriveLength,crankP2.y);
+		double a_pivot=Geo.pivotAngle(crankP1, pivotDriveLength, pivotCenter, pivotRadius);
+		
+		pivotP1.set(
+				pivotCenter.x+pivotRadius*Math.sin(a_pivot), 
+				pivotCenter.y-pivotRadius*Math.cos(a_pivot));
+		
+		a_pivot=Geo.pivotAngle(crankP2, pivotDriveLength, pivotCenter, pivotRadius);
+		
+		pivotP2.set(pivotCenter.x+pivotRadius*Math.sin(a_pivot), 
+				pivotCenter.y-pivotRadius*Math.cos(a_pivot));
+		//pivotP2.set(crankP2.x+pivotDriveLength,crankP2.y);
 		
 	}
 	
@@ -57,5 +66,20 @@ public class WaveData {
 			return true;
 		}
 		return false;
+	}
+	
+	void test1()
+	{
+		System.out.printf("crankP1=%s\n",crankP1);;
+		System.out.printf("crankP2=%s\n",crankP2);;
+		System.out.printf("pivotP1=%s\n",pivotP1);;
+		System.out.printf("pivotP2=%s\n",pivotP2);;
+		System.out.printf("distance 1=%f\n",crankP1.distance(pivotP1));
+		System.out.printf("distance 2=%f\n",crankP2.distance(pivotP2));
+	}
+	 
+	public static void main(String[] args) {
+		WaveData wd= new WaveData();
+		wd.test1();
 	}
 }

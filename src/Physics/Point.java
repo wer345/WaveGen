@@ -18,8 +18,16 @@ public class Point {
 		y=_y;
 	}
 	
+	public double distance(Point p)
+	{
+		double dx=x-p.x;
+		double dy=y-p.y;
+		return Math.sqrt(dx*dx+dy*dy);
+	}
+	
 	@Override
 	public String toString() {
-		return "Point [x=" + x + ", y=" + y + "]";
+		//return "Point [x=" + x + ", y=" + y + "]";
+		return String.format("Point= [%6.2f, %6.2f]",x,y);
 	}
 }
