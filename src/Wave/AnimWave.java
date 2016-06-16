@@ -26,6 +26,10 @@ public class AnimWave extends UI {
 	
 	Line pivotDrive1= new Line(d.crankP1,d.pivotP1);
 	Line pivotDrive2= new Line(d.crankP2,d.pivotP2);
+
+//	Line board1= new Line(d.node0,d.node1);
+//	Line boardDrive1= new Line(d.pivotP1,d.node1);
+	
 	
 	public void setup() {
 		frametime=20;
@@ -44,6 +48,8 @@ public class AnimWave extends UI {
 	    VBase.rangeDefault= new Range(-originX*physicXsize,-originY*physicXsize*windowYXRate,
 	    		(1-originX)*physicXsize,(1-originY)*physicXsize*windowYXRate);
 		
+
+		
 	    Line [] lineset1= {crank1,pivot1,pivotDrive1};
 	    
 	    for( Line line:lineset1) {
@@ -61,6 +67,29 @@ public class AnimWave extends UI {
 		    vl2.setSize(3);
 			addView(vl2);
 	    }
+	    
+	    for(int i=0;i<d.nofBoard;i++) {
+	    	BoardData bd = d.boards.get(i);
+	    	Line board= new Line(bd.boardS,bd.boardE);
+		    VLine vlBoard=new VLine(board);
+		    vlBoard.setColor(Color.yellow);
+		    vlBoard.setSize(3);
+			addView(vlBoard);
+
+	    	Line pivotDrive= new Line(bd.pivot,bd.pivotDrive);
+		    VLine vlPD=new VLine(pivotDrive);
+		    vlPD.setColor(Color.red);
+		    vlPD.setSize(3);
+			addView(vlPD);
+			
+	    	Line boardDrive= new Line(bd.boardE,bd.pivotDrive);
+		    VLine vlBD=new VLine(boardDrive);
+		    vlBD.setColor(Color.gray);
+		    vlBD.setSize(3);
+			addView(vlBD);
+			
+	    }
+	    
 	}
 
 	public void loop()

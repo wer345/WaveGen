@@ -28,6 +28,6 @@ public class Point {
 	@Override
 	public String toString() {
 		//return "Point [x=" + x + ", y=" + y + "]";
-		return String.format("Point= [%6.2f, %6.2f]",x,y);
+		return String.format("Point(%6.2f, %6.2f)",x,y);
 	}
 }
