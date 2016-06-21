@@ -8,58 +8,57 @@ import Physics.Point;
 public class WaveData {
 	double bottomHeight=0;
 
-	double driveHeight=100;
-	double pivotCenterY=130;
+	double crankHeight=100;
+	double driveY=130;
 	
-	Point crankCenter= new Point(0,driveHeight);
+	Point crankCenter= new Point(0,crankHeight);
 	double crankRadius=20;
 
 	double pivotDriveLength=60;
 	
-	double pivotSyncX=60;
-	double pivotSyncY=pivotCenterY;
+	double syncX=60;
+	double syncY=driveY;
 	double pivotSyncRadius=30;
 	
-	
-	double boardData[]={
-		// Pivot X, Pivot Y, pivotDriveLength, pivotDriveAngle, boardDriveLength, boardLength			
-				70,	pivotSyncY,	20,				0.5*Math.PI,		75,				60
-			 , 130,	pivotSyncY,	20,				0.5*Math.PI,		75,				60
-			 , 190,	pivotSyncY,	20,				1.5*Math.PI,		75,				60
-			 , 250,	pivotSyncY,	20,				1.5*Math.PI,		75,				60
-			 , 310,	pivotSyncY,	20,				0.5*Math.PI,		75,				60
-			};
-	
-	int nofBoard=boardData.length/6;
-	
-	Point crankP1= new Point();
-	Point crankP2= new Point();
-	Point pivotCenter= new Point(pivotSyncX,pivotSyncY);
-	Point pivotP1= new Point();
-	Point pivotP2= new Point();
-	
-	double anglePivot1=0;
-	double anglePivot2=0;
-	
-	double crankAngle=0;
-	double step=0.01*Math.PI;
-	double maxAngle=2*Math.PI;
-	double angle90=Math.PI/2;
-	
-	double boardFix_X=5;
+	double boardFix_X=5;		// point of the fixed point of the first board
 	double boardFix_Y=55;
 	
-	Point boardFix= new Point(boardFix_X,boardFix_Y);
-//	Point node1= new Point();
-	double boardLength1=60;
-	double boardDriveLength1=70;
+	public double boardData[]={
+		// DriverAxis X, DriverAxis Y, DriveBarLength, DriveBarPosition, PusherLength, boardLength			
+				70,	syncY,	20,				0.5*Math.PI,		75,				60
+			 , 130,	syncY,	20,				0.5*Math.PI,		75,				60
+			 , 190,	syncY,	20,				1.5*Math.PI,		75,				60
+			 , 250,	syncY,	20,				1.5*Math.PI,		75,				60
+			 , 310,	syncY,	20,				0.5*Math.PI,		75,				60
+			};
+	
+	public int nofBoard=boardData.length/6;
+	
+	public Point crankP1= new Point();
+	public Point crankP2= new Point();
+	public Point pivotCenter= new Point(syncX,syncY);
+	public Point pivotP1= new Point();
+	public Point pivotP2= new Point();
+	
+	public double anglePivot1=0;
+	public double anglePivot2=0;
+	
+	public double crankAngle=0;
+	public double step=0.01*Math.PI;
+	public double maxAngle=2*Math.PI;
+	public double angle90=Math.PI/2;
+	
+	
+	public Point boardFix= new Point(boardFix_X,boardFix_Y);
+	public double boardLength1=60;
+	public double boardDriveLength1=70;
 	
 	
 	
 	
-	List <BoardData> boards= new ArrayList<BoardData>();
+	public List <BoardData> boards= new ArrayList<BoardData>();
 	
-	WaveData() {
+	public WaveData() {
 		int p=0;
 		for (int i=0;i<nofBoard;i++) {
 			boards.add(new BoardData(boardData[p],boardData[p+1],boardData[p+2],boardData[p+3],boardData[p+4],boardData[p+5]));
@@ -73,8 +72,12 @@ public class WaveData {
 		crankAngle=0;
 		run();
 	}
-	
+
 	public void run() {
+		run(nofBoard);
+	}
+	
+	public void run(int nofBoardToRun) {
 		// locate the point of crank 1
 		crankP1.set(
 				crankCenter.x + crankRadius*Math.cos(crankAngle),
@@ -99,7 +102,7 @@ public class WaveData {
 				pivotCenter.y-pivotSyncRadius*Math.cos(anglePivot2));
 		
 		Point boardStart=boardFix;
-		for(int i=0;i<nofBoard;i++) {
+		for(int i=0;i<nofBoardToRun;i++) {
 	    	BoardData bd = boards.get(i);
 	    	double a;
 	    	if ( (i%2)==0) 
@@ -107,7 +110,7 @@ public class WaveData {
 	    	else
 	    		a=anglePivot2;
 	    	bd.run(boardStart,a);
-	    	boardStart=bd.boardE;
+	    	boardStart=bd.boardEnd;
 		}
 //		node1.set(node0.x+boardLength1,pivotP1.y-boardDriveLength1);
 		
@@ -133,10 +136,10 @@ public class WaveData {
 		System.out.printf("distance 1=%f\n",crankP1.distance(pivotP1));
 		System.out.printf("distance 2=%f\n",crankP2.distance(pivotP2));
 		BoardData bd = boards.get(0);
-		System.out.printf(" board pivot = %s\n",bd.pivot);
-		System.out.printf(" board pivotDrive = %s\n",bd.pivotDrive);
-		System.out.printf(" board start = %s\n",bd.boardS);
-		System.out.printf(" board end = %s\n",bd.boardE);
+		System.out.printf(" board pivot = %s\n",bd.driverAxis);
+		System.out.printf(" board pivotDrive = %s\n",bd.driverEnd);
+		System.out.printf(" board start = %s\n",bd.boardStart);
+		System.out.printf(" board end = %s\n",bd.boardEnd);
 	}
 	 
 	public static void _main(String[] args) {

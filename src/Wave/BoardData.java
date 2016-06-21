@@ -3,42 +3,44 @@ package Wave;
 import Physics.Point;
 
 public class BoardData {
-	double pivotDriveLength;	// length of pivot drive
-	double pivotDriveAngle;		// the angle between the syn bar and the pivot drive
-	double boardDriveLength;	// the length of the drive from pivot to board
-	double boardLength;			// the length of board
+	public double driverBarLength;	// length of pivot drive
+	public double driverBarPositionAngle;		// the angle between the syn bar and the pivot drive
+	public double pusherLength;	// the length of the drive from pivot to board
+	public  double boardLength;			// the length of board
 	
-	double angle; // angle of the sync bar
-	Point pivot;
-	Point boardS=new Point(); // start of the board
-	Point boardE=new Point(); // end of the board
-	Point pivotDrive=new Point(); //  end of the pivot drive 
+	public Point driverAxis;				// the point the board rotate around
+	public double driverAngle; 				// angle of the sync bar
+	public Point driverEnd=new Point(); //  end of the pivot drive 
+	public Point boardStart=new Point(); 	// start of the board
+	public Point boardEnd=new Point(); 	// end of the board
+	
+	// DriverAxis X, DriverAxis Y, DriveBarLength, DriveBarPosition, PusherLength, boardLength			
 	
 	BoardData(
-		double _pivotX, 
-		double _pivotY, 
-		double _pivotDriveLength,  // negative value for negative drive
-		double _pivotDriveAngle,
-		double _boardDriveLength,
+		double _driverAxisX, 
+		double _driverAxisY, 
+		double _driverBarLength,  // negative value for negative drive
+		double _driverBarPositionAngle,
+		double _pusherLength,
 		double _boardLength
 		)
 		{
-			pivot = new Point(_pivotX,_pivotY);
-			pivotDriveLength = _pivotDriveLength;
-			pivotDriveAngle = _pivotDriveAngle;
-			boardDriveLength = _boardDriveLength;
+			driverAxis = new Point(_driverAxisX,_driverAxisY);
+			driverBarLength = _driverBarLength;
+			driverBarPositionAngle = _driverBarPositionAngle;
+			pusherLength = _pusherLength;
 			boardLength = _boardLength;
 		}
 	
-	void run(Point boardStart,double a) {
-		boardS.x=boardStart.x;
-		boardS.y=boardStart.y;
-		angle=a;
-		double anglePivotDrive=angle+pivotDriveAngle;
-		pivotDrive.set(
-			pivot.x+pivotDriveLength*Math.sin(anglePivotDrive),
-			pivot.y-pivotDriveLength*Math.cos(anglePivotDrive));
-		double anglePD= Geo.angleToLowPivot(pivotDrive,boardDriveLength,boardS,boardLength);
-		boardE.set(boardS.x+boardLength*Math.cos(anglePD), boardS.y+boardLength*Math.sin(anglePD));
+	void run(Point boardFix,double angle) {
+		boardStart.x=boardFix.x;
+		boardStart.y=boardFix.y;
+		driverAngle=angle;
+		double angleDriver=driverAngle+driverBarPositionAngle;
+		driverEnd.set(
+			driverAxis.x+driverBarLength*Math.sin(angleDriver),
+			driverAxis.y-driverBarLength*Math.cos(angleDriver));
+		double angleboard= Geo.angleToLowPivot(driverEnd,pusherLength,boardStart,boardLength);
+		boardEnd.set(boardStart.x+boardLength*Math.cos(angleboard), boardStart.y+boardLength*Math.sin(angleboard));
 	}
 }

@@ -70,19 +70,19 @@ public class AnimWave extends UI {
 	    
 	    for(int i=0;i<d.nofBoard;i++) {
 	    	BoardData bd = d.boards.get(i);
-	    	Line board= new Line(bd.boardS,bd.boardE);
+	    	Line board= new Line(bd.boardStart,bd.boardEnd);
 		    VLine vlBoard=new VLine(board);
 		    vlBoard.setColor(Color.yellow);
 		    vlBoard.setSize(3);
 			addView(vlBoard);
 
-	    	Line pivotDrive= new Line(bd.pivot,bd.pivotDrive);
+	    	Line pivotDrive= new Line(bd.driverAxis,bd.driverEnd);
 		    VLine vlPD=new VLine(pivotDrive);
 		    vlPD.setColor(Color.red);
 		    vlPD.setSize(3);
 			addView(vlPD);
 			
-	    	Line boardDrive= new Line(bd.boardE,bd.pivotDrive);
+	    	Line boardDrive= new Line(bd.boardEnd,bd.driverEnd);
 		    VLine vlBD=new VLine(boardDrive);
 		    vlBD.setColor(Color.gray);
 		    vlBD.setSize(3);
