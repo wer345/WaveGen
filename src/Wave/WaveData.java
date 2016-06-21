@@ -21,12 +21,16 @@ public class WaveData {
 	double pivotSyncRadius=30;
 	
 	
-	int nofBoard=2;
 	double boardData[]={
 		// Pivot X, Pivot Y, pivotDriveLength, pivotDriveAngle, boardDriveLength, boardLength			
 				70,	pivotSyncY,	20,				0.5*Math.PI,		75,				60
 			 , 130,	pivotSyncY,	20,				0.5*Math.PI,		75,				60
+			 , 190,	pivotSyncY,	20,				1.5*Math.PI,		75,				60
+			 , 250,	pivotSyncY,	20,				1.5*Math.PI,		75,				60
+			 , 310,	pivotSyncY,	20,				0.5*Math.PI,		75,				60
 			};
+	
+	int nofBoard=boardData.length/6;
 	
 	Point crankP1= new Point();
 	Point crankP2= new Point();
