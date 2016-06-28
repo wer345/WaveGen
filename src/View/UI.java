@@ -32,6 +32,8 @@ public class UI extends JPanel {
 
   public void setWindow(int width, int height ) {
 	    frame.setSize(width+25, height+50);
+		setLocation(100, 400);
+
 	    VBase.setWindow(width,height);
   }
 

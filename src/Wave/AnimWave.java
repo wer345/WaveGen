@@ -10,6 +10,7 @@ import View.UI;
 import View.Range;
 import View.VBase;
 import View.VLine;
+import View.VPolyline;
 
 
 public class AnimWave extends UI {
@@ -27,6 +28,7 @@ public class AnimWave extends UI {
 	Line pivotDrive1= new Line(d.crankP1,d.pivotP1);
 	Line pivotDrive2= new Line(d.crankP2,d.pivotP2);
 
+	
 //	Line board1= new Line(d.node0,d.node1);
 //	Line boardDrive1= new Line(d.pivotP1,d.node1);
 	
@@ -34,12 +36,12 @@ public class AnimWave extends UI {
 	public void setup() {
 		frametime=20;
 	    //frame.setSize(800, 600);
-		int pixWindowX=600;
-		int pixWindowY=400;
-		double originX=0.2; // x position of origin in the Window, 0 - left edge, 1 - right edge
-		double originY=0.2; // y position of origin in the Window, 0 - bottom edge, 1 - top edge
+		int pixWindowX=1400;
+		int pixWindowY=600;
+		double originX=0.1; // x position of origin in the Window, 0 - left edge, 1 - right edge
+		double originY=0.0; // y position of origin in the Window, 0 - bottom edge, 1 - top edge
 		
-		double physicXsize=500; // the physic size in x the windows shows.
+		double physicXsize=400; // the physic size in x the windows shows.
 		
 		setWindow(pixWindowX,pixWindowY);
 		
@@ -48,7 +50,12 @@ public class AnimWave extends UI {
 	    VBase.rangeDefault= new Range(-originX*physicXsize,-originY*physicXsize*windowYXRate,
 	    		(1-originX)*physicXsize,(1-originY)*physicXsize*windowYXRate);
 		
-
+	    double btmPos=43.0;
+	    Line bottom = new Line(new Point(0,btmPos),new Point(300,btmPos));
+	    VLine vlb=new VLine(bottom);
+	    vlb.setColor(Color.blue);
+	    vlb.setSize(1);
+		addView(vlb);
 		
 	    Line [] lineset1= {crank1,pivot1,pivotDrive1};
 	    
@@ -75,7 +82,12 @@ public class AnimWave extends UI {
 		    vlBoard.setColor(Color.yellow);
 		    vlBoard.setSize(3);
 			addView(vlBoard);
-
+			
+			VPolyline vpl= new VPolyline(bd.profile); 
+			vpl.setColor(Color.yellow);
+			vpl.setSize(3);
+			addView(vpl);
+			
 	    	Line pivotDrive= new Line(bd.driverAxis,bd.driverEnd);
 		    VLine vlPD=new VLine(pivotDrive);
 		    vlPD.setColor(Color.red);

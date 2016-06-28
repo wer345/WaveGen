@@ -14,22 +14,22 @@ public class WaveData {
 	Point crankCenter= new Point(0,crankHeight);
 	double crankRadius=20;
 
-	double pivotDriveLength=60;
 	
 	double syncX=60;
 	double syncY=driveY;
-	double pivotSyncRadius=30;
+	double syncRadius=30;
+	double syncPusherLength=60;
 	
 	double boardFix_X=5;		// point of the fixed point of the first board
 	double boardFix_Y=55;
 	
 	public double boardData[]={
 		// DriverAxis X, DriverAxis Y, DriveBarLength, DriveBarPosition, PusherLength, boardLength			
-				70,	syncY,	20,				0.5*Math.PI,		75.90,				60
-			 , 130,	syncY,	20,				0.5*Math.PI,		75.81,				60
-			 , 190,	syncY,	20,				1.5*Math.PI,		74.05,				60
-			 , 250,	syncY,	20,				1.5*Math.PI,		74.09,				60
-			 , 310,	syncY,	20,				0.5*Math.PI,		77.87,				60
+				64,	syncY,	20,				0.5*Math.PI,		74.50,				60
+			 , 124,	syncY,	20,				0.5*Math.PI,		74.43,				60
+			 , 180,	syncY,	20,				1.5*Math.PI,		75.39,				60
+			 , 240,	syncY,	20,				1.5*Math.PI,		75.43,				60
+			 , 297,	syncY,	20,				0.5*Math.PI,		74.37,				60
 			};
 	
 	public int nofBoard=boardData.length/6;
@@ -61,7 +61,10 @@ public class WaveData {
 	public WaveData() {
 		int p=0;
 		for (int i=0;i<nofBoard;i++) {
-			boards.add(new BoardData(boardData[p],boardData[p+1],boardData[p+2],boardData[p+3],boardData[p+4],boardData[p+5]));
+			int nofProfilePoints=0;
+			if(i>0)
+				nofProfilePoints=9;
+			boards.add(new BoardData(boardData[p],boardData[p+1],boardData[p+2],boardData[p+3],boardData[p+4],boardData[p+5],nofProfilePoints));
 			p+=6;
 		}
 		start();
@@ -89,17 +92,17 @@ public class WaveData {
 				crankCenter.y + crankRadius*Math.sin(crankAngle+angle90));
 		
 		// find the angle of sync pivot 1
-		anglePivot1=Geo.angleToRightPivot(crankP1, pivotDriveLength, pivotCenter, pivotSyncRadius);
+		anglePivot1=Geo.angleToRightPivot(crankP1, syncPusherLength, pivotCenter, syncRadius);
 		
 		pivotP1.set(
-				pivotCenter.x+pivotSyncRadius*Math.sin(anglePivot1), 
-				pivotCenter.y-pivotSyncRadius*Math.cos(anglePivot1));
+				pivotCenter.x+syncRadius*Math.sin(anglePivot1), 
+				pivotCenter.y-syncRadius*Math.cos(anglePivot1));
 		
 		// find the angle of sync pivot 2
-		anglePivot2=Geo.angleToRightPivot(crankP2, pivotDriveLength, pivotCenter, pivotSyncRadius);
+		anglePivot2=Geo.angleToRightPivot(crankP2, syncPusherLength, pivotCenter, syncRadius);
 		
-		pivotP2.set(pivotCenter.x+pivotSyncRadius*Math.sin(anglePivot2), 
-				pivotCenter.y-pivotSyncRadius*Math.cos(anglePivot2));
+		pivotP2.set(pivotCenter.x+syncRadius*Math.sin(anglePivot2), 
+				pivotCenter.y-syncRadius*Math.cos(anglePivot2));
 		
 		Point boardStart=boardFix;
 		for(int i=0;i<nofBoardToRun;i++) {

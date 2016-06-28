@@ -7,12 +7,21 @@ public class Point {
 		x=0;
 		y=0;
 	}
+
+	public Point(Point p) {
+		x=p.x;
+		y=p.y;
+	}
 	
 	public Point(double _x,double _y) {
 		x=_x;
 		y=_y;
 	}
 
+	public void set(Point p) {
+		x=p.x;
+		y=p.y;
+	}
 	public void set(double _x,double _y) {
 		x=_x;
 		y=_y;
@@ -23,6 +32,15 @@ public class Point {
 		double dx=x-p.x;
 		double dy=y-p.y;
 		return Math.sqrt(dx*dx+dy*dy);
+	}
+	
+	public Vector vectorTo(Point P2) {
+		return new Vector(P2.x-x,P2.y-y);
+	}
+	
+	public void move(Vector v) {
+		x+=v.x;
+		y+=v.y;
 	}
 	
 	@Override
