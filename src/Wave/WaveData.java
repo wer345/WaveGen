@@ -25,11 +25,11 @@ public class WaveData {
 	
 	public double boardData[]={
 		// DriverAxis X, DriverAxis Y, DriveBarLength, DriveBarPosition, PusherLength, boardLength			
-				70,	syncY,	20,				0.5*Math.PI,		75,				60
-			 , 130,	syncY,	20,				0.5*Math.PI,		75,				60
-			 , 190,	syncY,	20,				1.5*Math.PI,		75,				60
-			 , 250,	syncY,	20,				1.5*Math.PI,		75,				60
-			 , 310,	syncY,	20,				0.5*Math.PI,		75,				60
+				70,	syncY,	20,				0.5*Math.PI,		75.90,				60
+			 , 130,	syncY,	20,				0.5*Math.PI,		75.81,				60
+			 , 190,	syncY,	20,				1.5*Math.PI,		74.05,				60
+			 , 250,	syncY,	20,				1.5*Math.PI,		74.09,				60
+			 , 310,	syncY,	20,				0.5*Math.PI,		77.87,				60
 			};
 	
 	public int nofBoard=boardData.length/6;
