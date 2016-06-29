@@ -111,13 +111,59 @@ public class Design extends WaveData{
 			lastJoint=jmin;
 		}
 	}
-	 
-	public static void main(String[] args) {
+
+	static void getPusherLength() {
 		Design wd= new Design();
 		double [] lengths=wd.getPusherLengths(43.0,360);
 		for (int i=0;i<lengths.length;i++)
 			System.out.printf("pusher %d length = %6.2f\n",i,lengths[i]);
 		wd.showLowjoints();
 	}
+	
+	public void findProfile() {
+		int resolution=360;
+		double step=2*Math.PI/resolution;
+		JointPosition jMin=new JointPosition(0,0,0);
+		for(int i=1;i<nofBoard;i++) {
+			BoardData bd = boards.get(i);
+			int npp=bd.nofProfilePoint;
+			for(int j=0;j<npp;j++) 
+				bd.profileHeights[j]=100000;
 
+			System.out.printf("board %d, # of profile points  %d\n",i,npp);
+			for(int j=0;j<npp;j++) {
+				System.out.printf("point %d, profile height=  %6.2f\n",j,bd.profileHeights[j]);
+			}
+		}
+		
+		for(int a=0;a<=resolution;a++) {
+			crankAngle=step*a;
+			run(nofBoard);
+			for(int i=1;i<nofBoard;i++) {
+				BoardData bd = boards.get(i);
+				bd.alignProfileHeight(43);
+			}
+		}
+		
+		for(int i=1;i<nofBoard;i++) {
+			BoardData bd = boards.get(i);
+			int npp=bd.nofProfilePoint;
+			double secLength=bd.boardLength/(bd.nofProfilePoint+1);
+			System.out.printf("\nboard %d, # of profile points  %d\n",i,npp);
+			
+			System.out.printf("    0.0,    0.0,    0.0\n");
+			for(int j=0;j<npp;j++) {
+				double x=secLength*(1+j);
+				System.out.printf("%6.2f, %6.2f,  0.0\n",x, -bd.profileHeights[j]);
+			}
+			System.out.printf("%6.2f, %6.2f,  0.0\n",bd.boardLength,0.0);
+		}
+		
+	}
+	
+	public static void main(String[] args) {
+		//getPusherLength();
+		Design wd= new Design();
+		wd.findProfile();
+	}
 }

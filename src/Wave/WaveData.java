@@ -63,7 +63,7 @@ public class WaveData {
 		for (int i=0;i<nofBoard;i++) {
 			int nofProfilePoints=0;
 			if(i>0)
-				nofProfilePoints=9;
+				nofProfilePoints=50;
 			boards.add(new BoardData(boardData[p],boardData[p+1],boardData[p+2],boardData[p+3],boardData[p+4],boardData[p+5],nofProfilePoints));
 			p+=6;
 		}
