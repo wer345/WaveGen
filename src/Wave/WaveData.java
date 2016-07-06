@@ -36,12 +36,12 @@ public class WaveData {
 	
 	public Point crankP1= new Point();
 	public Point crankP2= new Point();
-	public Point pivotCenter= new Point(syncX,syncY);
-	public Point pivotP1= new Point();
-	public Point pivotP2= new Point();
+	public Point syncCenter= new Point(syncX,syncY);
+	public Point syncP1= new Point();
+	public Point syncP2= new Point();
 	
-	public double anglePivot1=0;
-	public double anglePivot2=0;
+	public double angleSync1=0;
+	public double angleSync2=0;
 	
 	public double crankAngle=0;
 	public double step=0.01*Math.PI;
@@ -92,26 +92,26 @@ public class WaveData {
 				crankCenter.y + crankRadius*Math.sin(crankAngle+angle90));
 		
 		// find the angle of sync pivot 1
-		anglePivot1=Geo.angleToRightPivot(crankP1, syncPusherLength, pivotCenter, syncRadius);
+		angleSync1=Geo.angleToRightPivot(crankP1, syncPusherLength, syncCenter, syncRadius);
 		
-		pivotP1.set(
-				pivotCenter.x+syncRadius*Math.sin(anglePivot1), 
-				pivotCenter.y-syncRadius*Math.cos(anglePivot1));
+		syncP1.set(
+				syncCenter.x+syncRadius*Math.sin(angleSync1), 
+				syncCenter.y-syncRadius*Math.cos(angleSync1));
 		
 		// find the angle of sync pivot 2
-		anglePivot2=Geo.angleToRightPivot(crankP2, syncPusherLength, pivotCenter, syncRadius);
+		angleSync2=Geo.angleToRightPivot(crankP2, syncPusherLength, syncCenter, syncRadius);
 		
-		pivotP2.set(pivotCenter.x+syncRadius*Math.sin(anglePivot2), 
-				pivotCenter.y-syncRadius*Math.cos(anglePivot2));
+		syncP2.set(syncCenter.x+syncRadius*Math.sin(angleSync2), 
+				syncCenter.y-syncRadius*Math.cos(angleSync2));
 		
 		Point boardStart=boardFix;
 		for(int i=0;i<nofBoardToRun;i++) {
 	    	BoardData bd = boards.get(i);
 	    	double a;
 	    	if ( (i%2)==0) 
-	    		a=anglePivot1;
+	    		a=angleSync1;
 	    	else
-	    		a=anglePivot2;
+	    		a=angleSync2;
 	    	bd.run(boardStart,a);
 	    	boardStart=bd.boardEnd;
 		}
@@ -134,10 +134,10 @@ public class WaveData {
 	{
 		System.out.printf("crankP1=%s\n",crankP1);
 		System.out.printf("crankP2=%s\n",crankP2);
-		System.out.printf("pivotP1=%s\n",pivotP1);
-		System.out.printf("pivotP2=%s\n",pivotP2);
-		System.out.printf("distance 1=%f\n",crankP1.distance(pivotP1));
-		System.out.printf("distance 2=%f\n",crankP2.distance(pivotP2));
+		System.out.printf("pivotP1=%s\n",syncP1);
+		System.out.printf("pivotP2=%s\n",syncP2);
+		System.out.printf("distance 1=%f\n",crankP1.distance(syncP1));
+		System.out.printf("distance 2=%f\n",crankP2.distance(syncP2));
 		BoardData bd = boards.get(0);
 		System.out.printf(" board pivot = %s\n",bd.driverAxis);
 		System.out.printf(" board pivotDrive = %s\n",bd.driverEnd);

@@ -22,11 +22,11 @@ public class AnimWave extends UI {
 	Line crank1= new Line(d.crankCenter,d.crankP1);
 	Line crank2= new Line(d.crankCenter,d.crankP2);
 	
-	Line pivot1= new Line(d.pivotCenter,d.pivotP1);
-	Line pivot2= new Line(d.pivotCenter,d.pivotP2);
+	Line pivot1= new Line(d.syncCenter,d.syncP1);
+	Line pivot2= new Line(d.syncCenter,d.syncP2);
 	
-	Line pivotDrive1= new Line(d.crankP1,d.pivotP1);
-	Line pivotDrive2= new Line(d.crankP2,d.pivotP2);
+	Line pivotDrive1= new Line(d.crankP1,d.syncP1);
+	Line pivotDrive2= new Line(d.crankP2,d.syncP2);
 
 	
 //	Line board1= new Line(d.node0,d.node1);

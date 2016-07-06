@@ -2,15 +2,15 @@ import Wave.BoardData;
 
 
 public class BoardDynamic {
-	ValueList driveAngle= new ValueList();
-	ValueList driverEnd_X= new ValueList();
-	ValueList driverEnd_Y= new ValueList();
+	Spectrum driveAngle= new Spectrum();
+	Spectrum driverEnd_X= new Spectrum();
+	Spectrum driverEnd_Y= new Spectrum();
 	
-	ValueList boardStart_X= new ValueList();
-	ValueList boardStart_Y= new ValueList();
+	Spectrum boardStart_X= new Spectrum();
+	Spectrum boardStart_Y= new Spectrum();
 	
-	ValueList boardEnd_X= new ValueList();
-	ValueList boardEnd_Y= new ValueList();
+	Spectrum boardEnd_X= new Spectrum();
+	Spectrum boardEnd_Y= new Spectrum();
 	
 	public double driveMass=1;
 	public double BoardMass=1;
