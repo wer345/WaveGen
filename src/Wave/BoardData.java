@@ -15,14 +15,14 @@ public class BoardData {
 	public double driverBarPositionAngle;	// the angle between the syn bar and the pivot drive
 	public double pusherLength;			// the length of the drive from pivot to board
 	public double boardLength;			// the length of board
-	public int nofProfilePoint; 		// the number of points that are between the 2 ends of board that give the profile of board
+	public int 		nofProfilePoint; 		// the number of points that are between the 2 ends of board that give the profile of board
 	public double [] profileHeights;		// the heights for profile point to the board line 
 	
 	public Point driverAxis;				// the point the board rotate around
 	public double driverAngle; 				// angle of the sync bar
-	public Point driverEnd=new Point(); //  end of the pivot drive 
+	public Point driverEnd=new Point(); 	//  end of the pivot drive 
 	public Point boardStart=new Point(); 	// start of the board
-	public Point boardEnd=new Point(); 	// end of the board
+	public Point boardEnd=new Point(); 		// end of the board
 	public Polyline profile;
 	// DriverAxis X, DriverAxis Y, DriveBarLength, DriveBarPosition, PusherLength, boardLength			
 	

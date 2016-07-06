@@ -118,6 +118,25 @@ public class ValueList  extends ArrayList <Double>{
 		return null;
 	}
 	
+	
+	@Override
+	public String toString() {
+		return toString("8.4");
+	}
+	
+	public String toString(String fmt) {
+		String rst=null;
+		for( Double v:this) {
+			if(rst==null)
+				rst=String.format("[%"+fmt+"f", v);
+			else
+				rst+=String.format(" ,%"+fmt+"f", v);
+		}
+		rst+="]";
+		
+		return rst;
+	}
+
 	public static void main(String[] args) {
 		//getPusherLength();
 		ValueList d1= new ValueList(1.1,2.2);
