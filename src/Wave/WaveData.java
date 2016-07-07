@@ -6,7 +6,7 @@ import java.util.List;
 import Physics.Point;
 
 public class WaveData {
-	double bottomHeight=0;
+	double bottomHeight=43;
 
 	double crankHeight=100;
 	double driveY=130;
@@ -26,7 +26,7 @@ public class WaveData {
 	double compBoardLength=30;
 	double compCrankLength=10;
 	double compDriveLength=40;
-	double compCrankAngle=Angle.d2r(180);
+	double compCrankAngle=Angle.d2r(0);
 	public Point crankComp= new Point();
 	
 	BoardData compBoard;
@@ -51,7 +51,7 @@ public class WaveData {
 	public double angleSync2=0;
 	
 	public double crankAngle=0;
-	public double step=0.01*Math.PI;
+	public double animStep=0.01*Math.PI;
 	public double maxAngle=2*Math.PI;
 	public double angle90=Math.PI/2;
 	
@@ -130,7 +130,7 @@ public class WaveData {
 	
 	public boolean next()
 	{
-		double newCrankAngle = crankAngle + step;
+		double newCrankAngle = crankAngle + animStep;
 		if(newCrankAngle <= maxAngle) {
 			crankAngle = newCrankAngle;
 			run();

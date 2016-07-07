@@ -17,7 +17,7 @@ public class AnimWave extends UI {
 	private static final long serialVersionUID = 1L;
 
 	private int y = 0;
-	WaveData d=new WaveData();
+	Design d=new Design();
 	
 	Line crank1= new Line(d.crankCenter,d.crankP1);
 	Line crank2= new Line(d.crankCenter,d.crankP2);
@@ -94,11 +94,14 @@ public class AnimWave extends UI {
 		addView(vlCompBoard);
 	    
 	    String [] PusherDataFile={"data\\board1.txt","data\\board2.txt","data\\board3.txt","data\\board4.txt"};
+	    d.findProfile();
 	    for(int idxPusher=0;idxPusher<d.nofBoard;idxPusher++) {
 	    	BoardData bd = d.boards.get(idxPusher);
-	    	if(idxPusher>0) {
-	    		bd.loadProfileHeight(PusherDataFile[idxPusher-1]);
-	    	}
+	    	
+	    	
+//	    	if(idxPusher>0) {
+//	    		bd.loadProfileHeight(PusherDataFile[idxPusher-1]);
+//	    	}
 	    	
 	    	Line board= new Line(bd.boardStart,bd.boardEnd);
 		    VLine vlBoard=new VLine(board);

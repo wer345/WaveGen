@@ -1,4 +1,4 @@
-import Wave.BoardData;
+package Wave;
 
 
 public class BoardDynamic {

@@ -1,3 +1,4 @@
+package Wave;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -5,8 +6,6 @@ import java.util.Scanner;
 
 import Physics.Point;
 import Physics.Vector;
-import Wave.BoardData;
-import Wave.WaveData;
 
 
 public class Dynamic extends WaveData{

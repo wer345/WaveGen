@@ -133,7 +133,7 @@ public class BoardData {
 		profile.set(nofProfilePoint+1, boardEnd.x, boardEnd.y);
 	}
 	
-	// set profile height let not over the bottom line
+	// set profile height let it not below the bottom line
 	public void alignProfileHeight(double bottomLevel) {
 		Vector boardDirection=boardStart.vectorTo(boardEnd);
 		boardDirection.normalize();

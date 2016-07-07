@@ -1,9 +1,8 @@
-import Wave.Angle;
-import Wave.BoardData;
-import Wave.WaveData;
+package Wave;
 
 
-public class Design extends WaveData{
+public class Design extends WaveData
+{
 	class JointPosition {
 		double crankAngle;
 		double x,y;
@@ -28,12 +27,12 @@ public class Design extends WaveData{
 		
 	}
 
-	
+
+	//find the joint that is in lowest position
 	public JointPosition getLowJoint(int resolution,int depth) {
 		BoardData bd = boards.get(depth-1);
 		double step=2*Math.PI/resolution;
 		JointPosition jMin=new JointPosition(0,0,0);
-		//double Amin=0,Amax=0,Xmin=0,Xmax=0,Ymin=0,Ymax=0;
 		for(int a=0;a<=resolution;a++) {
 			crankAngle=step*a;
 			run(depth);
@@ -54,15 +53,15 @@ public class Design extends WaveData{
 
 	/**
 	 * find the length of pushers that let all joint's low position
-	 * @param lowPosition
-	 * @return
+	 * @param lowPosition -- the lowest joint reaches this low position
+	 * @return the length of pushers
 	 */
 	public double [] getPusherLengths(double lowPosition,int resolution) {
-		int size=5;
+//		int size=5;
 		double stepMin=0.005;
-		double[] lengths= new double[size];
+		double[] lengths= new double[nofBoard];
 
-		for(int i=0;i<size;i++) {
+		for(int i=0;i<nofBoard;i++) {
 			BoardData b=boards.get(i);
 			double length=b.pusherLength;
 			double step=0.1*length;
@@ -113,12 +112,16 @@ public class Design extends WaveData{
 		}
 	}
 
-	static void getPusherLength() {
-		Design wd= new Design();
-		double [] lengths=wd.getPusherLengths(43.0,360);
+	/**
+	 * Set all pusher's length to let all low joint  reach the bottom line
+	 */
+	
+	void setPusherLength() {
+//		Design wd= new Design();
+		double [] lengths=getPusherLengths(bottomHeight,360);
 		for (int i=0;i<lengths.length;i++)
 			System.out.printf("pusher %d length = %6.2f\n",i,lengths[i]);
-		wd.showLowjoints();
+		showLowjoints();
 	}
 	
 	public void findProfile() {
@@ -131,10 +134,10 @@ public class Design extends WaveData{
 			for(int j=0;j<npp;j++) 
 				bd.profileHeights[j]=100000;
 
-			System.out.printf("board %d, # of profile points  %d\n",i,npp);
-			for(int j=0;j<npp;j++) {
-				System.out.printf("point %d, profile height=  %6.2f\n",j,bd.profileHeights[j]);
-			}
+//			System.out.printf("board %d, # of profile points  %d\n",i,npp);
+//			for(int j=0;j<npp;j++) {
+//				System.out.printf("point %d, profile height=  %6.2f\n",j,bd.profileHeights[j]);
+//			}
 		}
 		
 		for(int a=0;a<=resolution;a++) {
@@ -142,10 +145,12 @@ public class Design extends WaveData{
 			run(nofBoard);
 			for(int i=1;i<nofBoard;i++) {
 				BoardData bd = boards.get(i);
-				bd.alignProfileHeight(43);
+				bd.alignProfileHeight(bottomHeight);
 			}
 		}
-		
+	}
+
+	public void showProfile() {
 		for(int i=1;i<nofBoard;i++) {
 			BoardData bd = boards.get(i);
 			int npp=bd.nofProfilePoint;
@@ -159,12 +164,13 @@ public class Design extends WaveData{
 			}
 			System.out.printf("%6.2f, %6.2f,  0.0\n",bd.boardLength,0.0);
 		}
-		
 	}
 	
 	public static void main(String[] args) {
-		//getPusherLength();
+		
 		Design wd= new Design();
+		wd.setPusherLength();
 		wd.findProfile();
+		//wd.showProfile();
 	}
 }

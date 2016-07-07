@@ -73,6 +73,11 @@ public class DataTable {
 		return result;
 	}
 
+	public void SetItem(int rowIndex,int columnIndex,double value)
+	{
+		SetItem(rowIndex,columnIndex,String.format("%7.3f", value));
+	}
+	
 	public void SetItem(int rowIndex,int columnIndex,String value)
 	{
 		if(columnIndex>=columnSize)
