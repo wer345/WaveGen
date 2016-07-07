@@ -20,9 +20,16 @@ public class WaveData {
 	double syncRadius=30;
 	double syncPusherLength=60;
 	
-	double boardFix_X=5;		// point of the fixed point of the first board
-	double boardFix_Y=55;
+	double boardFix_X=-25;		// point of the fixed point of the first board
+	double boardFix_Y=65;
 	
+	double compBoardLength=30;
+	double compCrankLength=10;
+	double compDriveLength=40;
+	double compCrankAngle=Angle.d2r(180);
+	public Point crankComp= new Point();
+	
+	BoardData compBoard;
 	public double boardData[]={
 		// DriverAxis X, DriverAxis Y, DriveBarLength, DriveBarPosition, PusherLength, boardLength			
 				64,	syncY,	20,				0.5*Math.PI,		74.50,				60
@@ -54,12 +61,12 @@ public class WaveData {
 	public double boardDriveLength1=70;
 	
 	
-	
-	
 	public List <BoardData> boards= new ArrayList<BoardData>();
 	
 	public WaveData() {
 		int p=0;
+		compBoard=new BoardData(crankCenter.x,	crankCenter.y,	compCrankLength,	0,	compDriveLength,		compBoardLength,0);
+		
 		for (int i=0;i<nofBoard;i++) {
 			int nofProfilePoints=0;
 			if(i>0)
@@ -104,7 +111,9 @@ public class WaveData {
 		syncP2.set(syncCenter.x+syncRadius*Math.sin(angleSync2), 
 				syncCenter.y-syncRadius*Math.cos(angleSync2));
 		
-		Point boardStart=boardFix;
+		compBoard.run(boardFix,crankAngle+compCrankAngle+Math.PI/2);
+		
+		Point boardStart=compBoard.boardEnd;
 		for(int i=0;i<nofBoardToRun;i++) {
 	    	BoardData bd = boards.get(i);
 	    	double a;

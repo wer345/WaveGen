@@ -34,7 +34,7 @@ public class AnimWave extends UI {
 	
 	
 	public void setup() {
-		frametime=20;
+		frametime=40;	// minisecond per frame
 	    //frame.setSize(800, 600);
 		int pixWindowX=1400;
 		int pixWindowY=600;
@@ -74,6 +74,24 @@ public class AnimWave extends UI {
 		    vl2.setSize(3);
 			addView(vl2);
 	    }
+
+    	Line lineCompCrank= new Line(d.compBoard.driverAxis,d.compBoard.driverEnd);
+	    VLine vlCompCrank=new VLine(lineCompCrank);
+	    vlCompCrank.setColor(Color.cyan);
+	    vlCompCrank.setSize(3);
+		addView(vlCompCrank);
+
+    	Line lineCompPusher= new Line(d.compBoard.driverEnd,d.compBoard.boardEnd);
+	    VLine vlCompPusher=new VLine(lineCompPusher);
+	    vlCompPusher.setColor(Color.cyan);
+	    vlCompPusher.setSize(3);
+		addView(vlCompPusher);
+		
+	    Line lineCompBoard= new Line(d.compBoard.boardStart,d.compBoard.boardEnd);
+	    VLine vlCompBoard=new VLine(lineCompBoard);
+	    vlCompBoard.setColor(Color.cyan);
+	    vlCompBoard.setSize(3);
+		addView(vlCompBoard);
 	    
 	    String [] PusherDataFile={"data\\board1.txt","data\\board2.txt","data\\board3.txt","data\\board4.txt"};
 	    for(int idxPusher=0;idxPusher<d.nofBoard;idxPusher++) {
@@ -111,8 +129,10 @@ public class AnimWave extends UI {
 
 	public void loop()
 	{
-		if(!d.next())
-			d.start();
+		if(!paused) {
+			if(!d.next())
+				d.start();
+		}
 	}
 	
 	public static void main(String[] args) {

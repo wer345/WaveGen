@@ -1,3 +1,4 @@
+import Wave.Angle;
 import Wave.BoardData;
 import Wave.WaveData;
 

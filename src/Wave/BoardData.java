@@ -20,7 +20,7 @@ public class BoardData {
 	
 	public Point driverAxis;				// the point the board rotate around
 	public double driverAngle; 				// angle of the sync bar
-	public Point driverEnd=new Point(); 	//  end of the pivot drive 
+	public Point driverEnd=new Point(); 	// end of the pivot drive 
 	public Point boardStart=new Point(); 	// start of the board
 	public Point boardEnd=new Point(); 		// end of the board
 	public Polyline profile;

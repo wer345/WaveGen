@@ -1,19 +1,17 @@
 package View;
 
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.Rectangle2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class UI extends JPanel {
+public class UI extends JPanel implements KeyListener{
 
 	static boolean stopped=false;
 	/**
@@ -25,11 +23,25 @@ public class UI extends JPanel {
 	public Graphics2D g;
 	private List <VBase> views = new ArrayList <VBase>(); 
 	
-
+	public boolean paused=false;
+	
   public UI() {
     new RectRunnable();
   }
 
+  public void keyPressed(KeyEvent evt) {
+    int keyCode = evt.getKeyCode();
+    if (evt.isShiftDown()) {
+    	
+    }
+    if (keyCode == KeyEvent.VK_SPACE) {
+    	if(paused)
+    		paused=false;
+    	else
+    		paused=true;
+    }
+  }
+  
   public void setWindow(int width, int height ) {
 	    frame.setSize(width+25, height+50);
 		setLocation(100, 400);
@@ -74,6 +86,7 @@ public class UI extends JPanel {
 	    frame.setVisible(true);
 	    obj.setWindow(600,300);
 	    obj.setup();
+	    
   }
   
   // stop animation
@@ -104,4 +117,27 @@ public class UI extends JPanel {
       }
     }
   }
+
+
+@Override
+public void keyReleased(KeyEvent arg0) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void keyTyped(KeyEvent evt) {
+	// TODO Auto-generated method stub
+    int keyCode = evt.getKeyCode();
+    if (evt.isShiftDown()) {
+    	
+    }
+    if (keyCode == KeyEvent.VK_SPACE) {
+    	if(paused)
+    		paused=false;
+    	else
+    		paused=true;
+    }
+	
+}
 }
