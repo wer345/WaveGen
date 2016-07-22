@@ -13,7 +13,6 @@ import Physics.Vector;
 public class Volume extends Design{
 
 	public Point[] getWavePoints(Point[] pointList) {
-		
 		Point[] ps=pointList;
 		if(ps==null) {
 			int nofPoints=0;

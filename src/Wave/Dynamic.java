@@ -8,7 +8,7 @@ import Physics.Point;
 import Physics.Vector;
 
 
-public class Dynamic extends WaveData{
+public class Dynamic extends WaveDataWithCrankShaft{
 
 	Spectrum 
 		crankP1x,crankP1y,
@@ -19,6 +19,7 @@ public class Dynamic extends WaveData{
 	BoardDynamic [] bds;
 	
 	Dynamic() {
+		super();
 		bds = new BoardDynamic[nofBoard];
 		clear();
 	}
@@ -50,6 +51,7 @@ public class Dynamic extends WaveData{
 		for (int a=0;a<360;a++) {
 			crankAngle=step*a;
 			run(nofBoard);
+			
 			crankP1x.add(crankP1.x);
 			crankP1y.add(crankP1.y);
 			crankP2x.add(crankP2.x);
