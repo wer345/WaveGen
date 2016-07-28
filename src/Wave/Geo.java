@@ -99,7 +99,7 @@ public class Geo {
 	
 	// return distance of 2 points
 	public static double distannce(Point a, Point b) {
-		return Math.sqrt((a.x-b.x)*(a.x-b.x)-(a.y-b.y)*(a.y-b.y));
+		return Math.sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y));
 	}
 	
 	public static void test1() {

@@ -1,6 +1,6 @@
 package Physics;
 
-public class Point {
+public class Point extends Obj {
 	public double x,y;
 
 	public Point() {

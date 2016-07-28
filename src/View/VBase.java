@@ -79,4 +79,9 @@ public class VBase {
 			ui.addView(v);
 		}
 	}
+	
+	public void loop() {
+		
+	}
+	
 }

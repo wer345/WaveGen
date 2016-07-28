@@ -9,7 +9,13 @@ import Physics.Point;
 
 public class VJoint extends View <Joint>{
 
-//	@Override;
+	
+	
+	public VJoint(Joint v,UI ui) {
+		super(v,ui);
+	}
+	
+	@Override
 	public List <VBase> getChildren()
 	{
 		if(children==null) {
@@ -20,5 +26,15 @@ public class VJoint extends View <Joint>{
 		
 		return children;
 	}
+	
+	public void update() {
+		value.joint.y+=1;
+	}
+	
+//	@Override
+//	public void loop() {
+//		value.joint.y+=1;	
+//	}
+	
 	
 }
