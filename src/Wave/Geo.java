@@ -95,6 +95,12 @@ public class Geo {
 	public static double edgeLength(double a,double b, double ac) {
 		return Math.sqrt(a*a+b*b-2*a*b*Math.sin(ac));
 	}
+
+	
+	// return distance of 2 points
+	public static double distannce(Point a, Point b) {
+		return Math.sqrt((a.x-b.x)*(a.x-b.x)-(a.y-b.y)*(a.y-b.y));
+	}
 	
 	public static void test1() {
 		Point A = new Point(-1,-1);

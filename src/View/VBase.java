@@ -1,7 +1,9 @@
 package View;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.List;
 
+import Physics.Line;
 import Physics.Point;
 
 public class VBase {
@@ -18,6 +20,8 @@ public class VBase {
 	double ry;
 	Move moveTo=null;			// move to Parents
 	Move moveToAbsolute=null;	// move to the screen
+	
+	List <VBase> children=null;
 	
 	public VBase() {
 		setValueRange(rangeDefault);
@@ -62,5 +66,17 @@ public class VBase {
 	public void draw()
 	{
 		
+	}
+	
+	public List <VBase> getChildren()
+	{
+		return null;
+	}
+	
+	public void addChildrenToUI(UI ui) {
+		if(children!=null) {
+			for (VBase v:children)
+			ui.addView(v);
+		}
 	}
 }

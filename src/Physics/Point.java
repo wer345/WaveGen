@@ -18,6 +18,10 @@ public class Point {
 		y=_y;
 	}
 
+	public Point clone() {
+		return new Point(x,y);
+	}
+	
 	public void set(Point p) {
 		x=p.x;
 		y=p.y;
