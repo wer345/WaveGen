@@ -25,20 +25,42 @@ public class WaveDataSingleCrank extends WaveBase {
 	double compCrankAngle=Angle.d2r(0);
 	public Point crankComp= new Point();
 	
-	
 	public double boardData[]={
 		// DriverAxis X, DriverAxis Y, DriveBarLength, DriveBarPosition, PusherLength, boardLength			
-				64,	syncY,	20,				0.5*Math.PI,		74.50,				60
-			 , 124,	syncY,	20,				0.5*Math.PI,		74.43,				60
-			 , 180,	syncY,	20,				1.5*Math.PI,		75.39,				60
-			 , 240,	syncY,	20,				1.5*Math.PI,		75.43,				60
-			 , 297,	syncY,	20,				0.5*Math.PI,		74.37,				60
-			};
+			64,	syncY,	20,				0.5*Math.PI,		74.50,				60
+		 , 124,	syncY,	20,				0.5*Math.PI,		74.43,				60
+		 , 180,	syncY,	20,				1.5*Math.PI,		75.39,				60
+		 , 240,	syncY,	20,				1.5*Math.PI,		75.43,				60
+		 , 297,	syncY,	20,				0.5*Math.PI,		74.37,				60
+		};
+
+	double sync1Drive=60; // the length of drive rod from crank tip to drive of sync
+	double sync1Arm=30;	// the length of arm that is the distance from the center of sync to the drive	
+	double sync1Push=20; // the length of push that is the distance from the center of sync to the push
+	double sync1Angle=Angle.d2r(155); // the angle between drive and push
 	
+	double sync2Drive=60;
+	double sync2Arm=30;
+	double sync2Push=20; // the length of push that is the distance from the center of sync to the push
+	double sync2Angle=Angle.d2r(155); // the angle between drive and push
 	
-	public Point crankP1= new Point();		
-	public Point crankP2= new Point();
+	double DX_sync1=0.707*(sync1Drive+sync1Arm);
+	double DX_sync2=0.707*(sync2Drive+sync2Arm);
+	double DY_sync1=0.707*(sync1Drive-sync1Arm);
+	double DY_sync2=0.707*(sync2Drive-sync2Arm);
+
+	double sync1D2P=Geo.edgeLength(sync1Drive,sync1Push,sync1Angle);
+	double sync2D2P=Geo.edgeLength(sync2Drive,sync2Push,sync2Angle);
+	
+	public Point crankP= new Point();		
+//	public Point crankP2= new Point();
 	public Point syncCenter= new Point(syncX,syncY);
+	public Point syncC1= new Point(syncX,crankCenter.y+20);
+	public Point syncC2= new Point(syncX,crankCenter.y-20);
+	
+	public Point syncD1= new Point();
+	public Point syncD2= new Point();
+
 	public Point syncP1= new Point();
 	public Point syncP2= new Point();
 	
@@ -47,8 +69,6 @@ public class WaveDataSingleCrank extends WaveBase {
 	
 	public double boardLength1=60;
 	public double boardDriveLength1=70;
-	
-	
 	
 	public WaveDataSingleCrank() {
 		int p=0;
@@ -65,22 +85,32 @@ public class WaveDataSingleCrank extends WaveBase {
 		start();
 	}
 	
-	
 	@Override
 	public List<VLine> getLineViews()
 	{
 		List<VLine> lvs=new ArrayList<VLine>();
 		VLine[] vs = {
-				new VLine(crankCenter,crankP1,Color.blue,2), 	// crank1
-				new VLine(syncCenter,syncP1,Color.blue,2), 		// pivot1
-				new VLine(crankP1,syncP1,Color.blue,2),  		// pivotDrive1
-				new VLine(crankCenter,crankP2,Color.green,2),  	// crank2
-				new VLine(crankCenter,crankP2,Color.green,2),  	// crank2
-				new VLine(syncCenter,syncP2,Color.green,2), 	// pivot2
-				new VLine(crankP2,syncP2,Color.green,2),  		// pivotDrive2
-				new VLine(compBoard.driverAxis,compBoard.driverEnd,Color.cyan,3),  		// compCrank
-				new VLine(compBoard.driverEnd,compBoard.boardEnd,Color.cyan,3),  		// compPusher
-				new VLine(compBoard.boardStart,compBoard.boardEnd,Color.cyan,3),  		// compBoard
+			new VLine(crankCenter,crankP,Color.blue,2), 	// crank
+			
+//			new VLine(syncCenter,syncP1,Color.blue,2), 		// pivot1
+//			new VLine(crankP,syncP1,Color.blue,2),  		// pivotDrive1
+			
+			new VLine(crankP,syncD1,Color.cyan,2),  		// Sync1
+			new VLine(syncD1,syncC1,Color.cyan,2),  		// Sync1
+			new VLine(syncP1,syncC1,Color.cyan,2),  		// Sync1
+			
+			new VLine(crankP,syncD2,Color.green,2),  		// Sync2
+			new VLine(syncD2,syncC2,Color.green,2),  		// Sync2
+			new VLine(syncP2,syncC2,Color.green,2),  		// Sync2
+
+			
+//			new VLine(crankCenter,crankP2,Color.green,2),  	// crank2
+//			new VLine(syncCenter,syncP2,Color.green,2), 	// pivot2
+//			new VLine(crankP2,syncP2,Color.green,2),  		// pivotDrive2
+			
+			new VLine(compBoard.driverAxis,compBoard.driverEnd,Color.cyan,3),  		// compCrank
+			new VLine(compBoard.driverEnd,compBoard.boardEnd,Color.cyan,3),  		// compPusher
+			new VLine(compBoard.boardStart,compBoard.boardEnd,Color.cyan,3),  		// compBoard
 
 		};
 		
@@ -116,28 +146,34 @@ public class WaveDataSingleCrank extends WaveBase {
 	
 	@Override
 	public void run(int nofBoardToRun) {
-		// locate the point of crank 1
-		crankP1.set(
+		// set the point of crank
+		crankP.set(
 				crankCenter.x + crankRadius*Math.cos(crankAngle),
 				crankCenter.y + crankRadius*Math.sin(crankAngle));
 		
-		// locate the point of crank 2
-		crankP2.set(
-				crankCenter.x +crankRadius*Math.cos(crankAngle+angle90),
-				crankCenter.y + crankRadius*Math.sin(crankAngle+angle90));
 		
 		// find the angle of sync pivot 1
-		angleSync1=Geo.angleToRightPivot(crankP1, syncPusherLength, syncCenter, syncRadius);
+		angleSync1=Geo.angleToRightPivot(crankP, syncPusherLength, syncCenter, syncRadius);
 		
-		syncP1.set(
-				syncCenter.x+syncRadius*Math.sin(angleSync1), 
-				syncCenter.y-syncRadius*Math.cos(angleSync1));
+//		syncP1.set(	syncCenter.x+syncRadius*Math.sin(angleSync1), 
+//					syncCenter.y-syncRadius*Math.cos(angleSync1));
+//		
+//		syncP2.set(	syncCenter.x+syncRadius*Math.sin(angleSync2), 
+//					syncCenter.y-syncRadius*Math.cos(angleSync2));
 		
-		// find the angle of sync pivot 2
-		angleSync2=Geo.angleToRightPivot(crankP2, syncPusherLength, syncCenter, syncRadius);
 		
-		syncP2.set(syncCenter.x+syncRadius*Math.sin(angleSync2), 
-				syncCenter.y-syncRadius*Math.cos(angleSync2));
+		
+		syncC1= new Point(crankCenter.x-DX_sync1,crankCenter.y+DY_sync1);
+		syncC2= new Point(crankCenter.x+DX_sync2,crankCenter.y+DY_sync2);
+		
+		double sync1D2P=Geo.edgeLength(sync1Drive,sync1Push,sync1Angle);
+		double sync2D2P=Geo.edgeLength(sync2Drive,sync2Push,sync2Angle);
+		
+		Geo.getJoint(null, syncD1,  crankP, syncC1, sync1Drive, sync1Arm);
+		Geo.getJoint(syncP1, null,  syncD1, syncC1, sync1D2P, sync1Arm);
+		
+		Geo.getJoint(syncD2,null,  crankP, syncC2, sync2Drive, sync2Arm);
+		Geo.getJoint(null, syncP2,  syncD2, syncC2, sync2D2P, sync1Arm);
 		
 		compBoard.run(boardFix,crankAngle+compCrankAngle+Math.PI/2);
 		
@@ -157,12 +193,12 @@ public class WaveDataSingleCrank extends WaveBase {
 	
 	void test1()
 	{
-		System.out.printf("crankP1=%s\n",crankP1);
-		System.out.printf("crankP2=%s\n",crankP2);
-		System.out.printf("pivotP1=%s\n",syncP1);
-		System.out.printf("pivotP2=%s\n",syncP2);
-		System.out.printf("distance 1=%f\n",crankP1.distance(syncP1));
-		System.out.printf("distance 2=%f\n",crankP2.distance(syncP2));
+		System.out.printf("crankP1=%s\n",crankP);
+//		System.out.printf("crankP2=%s\n",crankP2);
+//		System.out.printf("pivotP1=%s\n",syncP1);
+//		System.out.printf("pivotP2=%s\n",syncP2);
+//		System.out.printf("distance 1=%f\n",crankP.distance(syncP1));
+//		System.out.printf("distance 2=%f\n",crankP2.distance(syncP2));
 		BoardData bd = boards.get(0);
 		System.out.printf(" board pivot = %s\n",bd.driverAxis);
 		System.out.printf(" board pivotDrive = %s\n",bd.driverEnd);

@@ -25,7 +25,7 @@ public class AnimWave extends UI {
 	    //frame.setSize(800, 600);
 		int pixWindowX=1400;
 		int pixWindowY=600;
-		double originX=0.1; // x position of origin in the Window, 0 - left edge, 1 - right edge
+		double originX=0.2; // x position of origin in the Window, 0 - left edge, 1 - right edge
 		double originY=0.0; // y position of origin in the Window, 0 - bottom edge, 1 - top edge
 		
 		double physicXsize=400; // the physic size in x the windows shows.
@@ -49,7 +49,11 @@ public class AnimWave extends UI {
 			addView(lv);
 		}
 		
-	    d.findProfile();
+		boolean searchForProfile=false;
+		
+		if(searchForProfile)
+			d.findProfile();
+	    
 	    List<VPolyline> pls = d.getPolylineViews();
 	    for(VPolyline pl:pls)
 	    	addView(pl);
