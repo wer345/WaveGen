@@ -1,8 +1,6 @@
 package view;
 
-import java.lang.reflect.Method;
-
-import Physics.Obj;
+import physics.Obj;
 
 
 public class View <T> extends VBase {

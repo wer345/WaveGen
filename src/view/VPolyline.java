@@ -3,8 +3,8 @@ package view;
 import java.awt.BasicStroke;
 import java.awt.Color;
 
-import Physics.Polyline;
-import Physics.Point;
+import physics.Point;
+import physics.Polyline;
 
 public class VPolyline extends VBase {
 	Polyline polyline;

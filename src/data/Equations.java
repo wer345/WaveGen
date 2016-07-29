@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import Wave.AnimWave;
+import wave.AnimWave;
 
 import com.utils.HashList;
 import com.utils.Util;

@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import Physics.Joint;
-import Physics.JointPush;
-import Physics.Line;
-import Physics.Point;
+import physics.Joint;
+import physics.JointPush;
+import physics.Line;
+import physics.Point;
 
 public class VJointPush extends View <JointPush>{
 

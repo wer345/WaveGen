@@ -3,8 +3,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.List;
 
-import Physics.Line;
-import Physics.Point;
+import physics.Line;
+import physics.Point;
 
 public class VBase {
 	static public Graphics2D g;
@@ -62,11 +62,6 @@ public class VBase {
 	public int yPixel(double d) {
 		return windowHeight- (int)(ry*(d-range.y1));
 	}
-	
-//	public void draw()
-//	{
-//		
-//	}
 	
 	public List <VBase> setChildrenViews()
 	{

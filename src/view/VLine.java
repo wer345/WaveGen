@@ -3,8 +3,8 @@ package view;
 import java.awt.BasicStroke;
 import java.awt.Color;
 
-import Physics.Line;
-import Physics.Point;
+import physics.Line;
+import physics.Point;
 
 public class VLine extends VBase {
 	Line line;

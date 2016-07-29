@@ -1,6 +1,6 @@
 package view;
 
-import Physics.Point;
+import physics.Point;
 
 public class VPoint extends VBase {
 	Point point;
