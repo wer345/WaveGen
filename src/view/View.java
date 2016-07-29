@@ -27,10 +27,10 @@ public class View <T> extends VBase {
 	}
 
 	
-	public void update() {
+	public void draw() {
 		Obj obj = (Obj) value;
 		obj.update();
-		super.update();
+		super.draw();
 	}
 	
 }

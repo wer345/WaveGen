@@ -35,7 +35,7 @@ public class AnimJoint extends UI {
 		}
 
 		if(js!=null)
-			js.update(r1*Math.cos(angle), r1*Math.sin(angle));
+			js.draw(r1*Math.cos(angle), r1*Math.sin(angle));
 		angle+=step;
 	}
 	

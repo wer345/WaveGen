@@ -63,10 +63,10 @@ public class VBase {
 		return windowHeight- (int)(ry*(d-range.y1));
 	}
 	
-	public void draw()
-	{
-		
-	}
+//	public void draw()
+//	{
+//		
+//	}
 	
 	public List <VBase> setChildrenViews()
 	{
@@ -84,10 +84,10 @@ public class VBase {
 	public void setUI(UI ui) {
 	}
 	
-	public void update() {
+	public void draw() {
 		if(children!=null) {
 			for(VBase vb:children)
-				vb.update();
+				vb.draw();
 		}
 	}
 	
