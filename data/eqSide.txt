@@ -1,0 +1,47 @@
+﻿"R_Crank"= 20
+"R_Sync"= 30
+"L_Sync1Drive"=80
+"A_Sync1"=45
+"XD_Sync1"= 0.707*("L_Sync1Drive"+"R_Sync")
+"YD_Sync1"= 0.707*("L_Sync1Drive"-"R_Sync")
+"LD_Sync1Drive"=40
+
+"L_Sync2Drive"=80
+"A_Sync2"=135
+"XD_Sync2"= 0.707*("L_Sync2Drive"+"R_Sync")
+"YD_Sync2"= 0.707*("L_Sync2Drive"-"R_Sync")
+"LD_Sync2Drive"=40
+
+"XC_Push1"=140
+"A_Push1"=271	
+"R_Push1"=25
+"D_Push1"=55
+
+"XC_Push2"="XC_Push1"+"D_Push1"
+"A_Push2"=271	
+"R_Push2"=25
+"D_Push2"=35
+
+"XC_Push3"="XC_Push2"+"D_Push2"
+"A_Push3"=91	
+"R_Push3"=25
+"D_Push3"=50
+
+"XC_Push4"="XC_Push3"+"D_Push3"
+"A_Push4"=91	
+"R_Push4"=25
+"D_Push4"=80
+
+"XC_Push5"="XC_Push4"+"D_Push4"
+"A_Push5"=271	
+"R_Push5"=25
+"D_Push5"=55
+
+
+"IDCenter_sync"=10
+"ID1_sync"=10
+"ID2_sync"=10
+
+"IDCenter_Push"=10
+"ID1_Push"=10
+"ID2_Push"=10

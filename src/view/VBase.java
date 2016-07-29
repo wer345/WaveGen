@@ -1,4 +1,4 @@
-package View;
+package view;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.List;
@@ -21,7 +21,7 @@ public class VBase {
 	Move moveTo=null;			// move to Parents
 	Move moveToAbsolute=null;	// move to the screen
 	
-	List <VBase> children=null;
+	public List <VBase> children=null;
 	
 	public VBase() {
 		setValueRange(rangeDefault);
@@ -68,20 +68,27 @@ public class VBase {
 		
 	}
 	
-	public List <VBase> getChildren()
+	public List <VBase> setChildrenViews()
 	{
+		System.out.printf("[ERROR] this code should not reach, define this method in your calss");
 		return null;
 	}
 	
 	public void addChildrenToUI(UI ui) {
 		if(children!=null) {
 			for (VBase v:children)
-			ui.addView(v);
+				ui.addView(v);
 		}
 	}
 	
-	public void loop() {
-		
+	public void setUI(UI ui) {
+	}
+	
+	public void update() {
+		if(children!=null) {
+			for(VBase vb:children)
+				vb.update();
+		}
 	}
 	
 }

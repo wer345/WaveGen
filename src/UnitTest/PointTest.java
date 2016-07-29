@@ -4,13 +4,13 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import view.Range;
+import view.UI;
+import view.VBase;
+import view.VLine;
+import view.VPoint;
 import Physics.Line;
 import Physics.Point;
-import View.UI;
-import View.Range;
-import View.VBase;
-import View.VLine;
-import View.VPoint;
 
 
 public class PointTest extends UI {

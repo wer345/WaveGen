@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import view.VLine;
+import view.VPolyline;
 import Physics.Line;
 import Physics.Point;
-import View.VLine;
-import View.VPolyline;
 
 public class WaveBase {
 	public double crankAngle=0;

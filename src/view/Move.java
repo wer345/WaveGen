@@ -1,4 +1,4 @@
-package View;
+package view;
 public class Move {
 	double x,y,rotate;
 	public Move(double _x, double _y,double _rotate) {

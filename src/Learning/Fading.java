@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
 
-import View.UI;
+import view.UI;
 
 
 public class Fading extends UI {

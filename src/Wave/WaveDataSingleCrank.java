@@ -4,9 +4,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import view.VLine;
 import Physics.Line;
 import Physics.Point;
-import View.VLine;
 
 public class WaveDataSingleCrank extends WaveBase {
 

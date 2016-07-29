@@ -1,4 +1,4 @@
-package View;
+package view;
 public class Range {
 	double x1,x2,y1,y2;
 	public Range(double _x1, double _y1,double _x2, double _y2) {
