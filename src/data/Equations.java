@@ -84,8 +84,10 @@ public class Equations {
 
 	public double getValue(String key) throws Exception {
 		String strV= lstEqs.get(key.toLowerCase().trim());
-		if(strV==null)
+		if(strV==null) {
+			System.out.printf("[ERROR} There is no value for %s\n", key);
 			throw new Exception("No value found");
+		}
 		return Double.parseDouble(strV);
 	}
 	
@@ -94,7 +96,7 @@ public class Equations {
 		return "Equations [\n" + lstEqs + "]";
 	}
 
-	public static void main(String[] args) {
+	public static void _main(String[] args) {
 		Equations eq= new Equations();
 		eq.Load("data\\eqSide.txt");
 		System.out.printf("%s\n", eq);

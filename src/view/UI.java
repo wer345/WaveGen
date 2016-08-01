@@ -1,10 +1,13 @@
 package view;
 
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +26,7 @@ public class UI extends JPanel implements KeyListener{
 	public Graphics2D g;
 	private List <VBase> views = new ArrayList <VBase>(); 
 	
-	public boolean paused=false;
+	public static boolean paused=false;
 	
   public UI() {
     new RectRunnable();
@@ -49,6 +52,13 @@ public class UI extends JPanel implements KeyListener{
 	    VBase.setWindow(width,height);
   }
 
+  public void setWindow(int width, int height ,int x,int y) {
+	    frame.setSize(width+25, height+50);
+		setLocation(x, y);
+
+	    VBase.setWindow(width,height);
+}
+
   public void setLocation(int x, int y ) {
 	    frame.setLocation(x, y);
 }
@@ -69,11 +79,13 @@ public class UI extends JPanel implements KeyListener{
     super.paint(_g);
     g = (Graphics2D) _g;
     VBase.g=g;
-    if(!stopped)
-    	loop();
-	for(VBase vb:views)
-		vb.draw();
-    
+    if(!stopped) {
+    	if(!paused) {
+	    	loop();
+    	}
+			for(VBase vb:views)
+				vb.draw();
+	    }
   }
 
   // start animation
@@ -83,6 +95,38 @@ public class UI extends JPanel implements KeyListener{
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //	    frame.setSize(600, 400);
 	    frame.setLocationRelativeTo(null);
+	    
+	    obj.setBackground(Color.WHITE);
+
+	    obj.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                //System.out.println("----------------------------------\n:MOUSE_PRESSED_EVENT:");
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+            	if(paused)
+            		paused=false;
+            	else
+            		paused=true;
+                System.out.println(":MOUSE_RELEASED_EVENT: "+paused);
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                //System.out.println(":MOUSE_EXITED_EVENT:");
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                //System.out.println(":MOUSE_ENTER_EVENT:");
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                //System.out.println(":MOUSE_CLICK_EVENT:");
+            }
+        });
+
+//        frame.add(panel);
+	    
 	    frame.setVisible(true);
 	    obj.setWindow(600,300);
 	    obj.setup();
@@ -110,10 +154,10 @@ public class UI extends JPanel implements KeyListener{
     public void run() {
       while (!stopped) {
         repaint();
-        try {
-          Thread.sleep(frametime);
-        } catch (Exception e) {
-        }
+		try {
+		  Thread.sleep(frametime);
+		} catch (Exception e) {
+		}
       }
     }
   }
@@ -140,4 +184,5 @@ public void keyTyped(KeyEvent evt) {
     }
 	
 }
+
 }

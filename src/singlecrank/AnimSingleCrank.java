@@ -15,22 +15,18 @@ public class AnimSingleCrank extends UI {
 	
 	
 	public void setup() {
-//		frametime=20;
-//	    //frame.setSize(800, 600);
-//		setWindow(500,500);
-//		
-//	    VBase.rangeDefault= new Range(-50,-50,50,50);
 		
 		frametime=40;	// minisecond per frame
 	    //frame.setSize(800, 600);
 		int pixWindowX=1400;
 		int pixWindowY=600;
-		double originX=0.3; // x position of origin in the Window, 0 - left edge, 1 - right edge
+		
+		double originX=0.25; // x position of origin in the Window, 0 - left edge, 1 - right edge
 		double originY=0.0; // y position of origin in the Window, 0 - bottom edge, 1 - top edge
 		
 		double physicXsize=500; // the physic size in x the windows shows.
 		
-		setWindow(pixWindowX,pixWindowY);
+		setWindow(pixWindowX,pixWindowY,400,600);
 		
 		double windowYXRate=pixWindowY;
 		windowYXRate/=pixWindowX;
@@ -52,7 +48,8 @@ public class AnimSingleCrank extends UI {
 
 		if(js!=null) {
 			double r1=js.sys.r_crank;
-			js.draw(r1*Math.cos(angle), r1*Math.sin(angle));
+			//js.draw(r1*Math.cos(angle), r1*Math.sin(angle));
+			js.rotate(angle);
 		}
 		angle+=step;
 	}

@@ -1,13 +1,13 @@
 ﻿"R_Crank"= 20
 "R_Sync"= 30
 "L_Sync1Drive"=80
-"A_Sync1"=45
+"A_Sync1"=135
 "XD_Sync1"= 0.707*("L_Sync1Drive"+"R_Sync")
 "YD_Sync1"= 0.707*("L_Sync1Drive"-"R_Sync")
 "LD_Sync1Drive"=40
 
 "L_Sync2Drive"=80
-"A_Sync2"=135
+"A_Sync2"=240
 "XD_Sync2"= 0.707*("L_Sync2Drive"+"R_Sync")
 "YD_Sync2"= 0.707*("L_Sync2Drive"-"R_Sync")
 "LD_Sync2Drive"=40
@@ -45,3 +45,14 @@
 "IDCenter_Push"=10
 "ID1_Push"=10
 "ID2_Push"=10
+
+"L_Board1"=120
+"L_BdDr1"=90
+"L_Board2"=62
+"L_BdDr2"=90
+"L_Board3"=63
+"L_BdDr3"=90
+"L_Board4"=64
+"L_BdDr4"=90
+"L_Board5"=65
+"L_BdDr5"=90

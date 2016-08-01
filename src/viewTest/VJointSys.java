@@ -19,7 +19,7 @@ public class VJointSys extends VBase {
 	Point pushP=new Point(35,-20);
 	
 //    Joint joint = new Joint(fixP,freeP,jointP);
-    JointPush jointPush = new JointPush(fixP,freeP,jointP,pushP);
+    JointPush jointPush = new JointPush(fixP,freeP,jointP);
 
 	Point fixP2=new Point(-30,0);
 	Point jointP2=new Point(-30,20);

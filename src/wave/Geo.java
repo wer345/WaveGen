@@ -89,6 +89,8 @@ public class Geo {
 				C2.x=A.x+A2D.x-D2C.x;
 				C2.y=A.y+A2D.y-D2C.y;
 			}
+		} else {
+			System.out.printf("[***Failed to get jointPoint] for P1=%s,P2=%s,p=%f,q=%f\n",A,B,p,q);
 		}
 	}
 	

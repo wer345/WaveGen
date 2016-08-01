@@ -2,7 +2,7 @@ package physics;
 
 import wave.Geo;
 
-public class Joint extends Point {
+public class Joint extends Obj {
 	public static int Left=0;
 	public static int Right=1;
 	
@@ -16,6 +16,15 @@ public class Joint extends Point {
 		
 	}
 	
+	public Joint(Point fix,Point free,double p,double q,int side) {
+		this.fix=fix;
+		this.free=free;
+		this.joint=new Point();
+		this.p=p;
+		this.q=q;
+		this.side=side;
+	}
+
 	// Create a Joint that structure is set up on 3 points
 	// the free point can move afterward
 	public Joint(Point fix,Point free,Point joint ) {
