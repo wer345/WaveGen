@@ -15,11 +15,11 @@ import view.VJointPush;
 import view.VLine;
 import view.VLink;
 
-public class VSigleCrank extends VBase {
+public class VSingleCrank extends VBase {
 	
 	SysSigleCrank sys;
 
-	public VSigleCrank(UI ui) {
+	public VSingleCrank(UI ui) {
 		super();
 		sys = new SysSigleCrank();
 		
@@ -27,6 +27,11 @@ public class VSigleCrank extends VBase {
 		
 		//VLine crank = new VLine(new Point(sys.x_crankCenter,sys.y_crankCenter),sys.crank.free,Color.red,6);
 		VLink vcrank = new VLink(sys.crank);
+		
+		vcrank.fixsize=30;
+		vcrank.freesize=20;
+		vcrank.freecolor=Color.red;
+		
 		// give view of joint 1
 	    VJointPush vjoint = new VJointPush(sys.jSync1);
 	    vjoint.fixColor=Color.green;

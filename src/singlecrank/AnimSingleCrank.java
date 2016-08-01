@@ -11,7 +11,7 @@ public class AnimSingleCrank extends UI {
 	double angleMax=2*Math.PI;
 	double step=0.01*Math.PI;
 	
-	VSigleCrank js; //=new JointSys();
+	VSingleCrank js; //=new JointSys();
 	
 	
 	public void setup() {
@@ -33,7 +33,7 @@ public class AnimSingleCrank extends UI {
 	    VBase.rangeDefault= new Range(-originX*physicXsize,-originY*physicXsize*windowYXRate,
 	    		(1-originX)*physicXsize,(1-originY)*physicXsize*windowYXRate);
 		
-	    js=new VSigleCrank(this);
+	    js=new VSingleCrank(this);
 	}
 
 	double angle=0;

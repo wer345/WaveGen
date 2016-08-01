@@ -21,6 +21,9 @@ public class VJointPush extends View <JointPush>{
 	public float pushSize=4;
 	public Color pushColor=Color.green;
 	
+	public float fixNodeSize=10;
+	public Color fixNodecolor=Color.black;
+	
 	public VJointPush(JointPush v) {
 		super(v);
 	}
@@ -44,6 +47,12 @@ public class VJointPush extends View <JointPush>{
 			// the arm connected to the push point
 			VLine line2Push= new VLine(value.fix,value.push,pushColor,pushSize);
 			children.add(line2Push);
+			
+			if(fixNodeSize>0) {
+				VCircle vc= new VCircle(value.fix,fixNodecolor,fixNodeSize);
+				children.add(vc);
+			}
+			
 		}
 		
 		return children;

@@ -17,6 +17,8 @@ public class VJoint extends View <Joint>{
 	public float freeSize=4;
 	public Color freeColor=Color.blue;
 	
+	public float fixNodeSize=5;
+	public Color fixNodecolor=Color.black;
 	
 	public VJoint(Joint v) {
 		super(v);
@@ -35,6 +37,12 @@ public class VJoint extends View <Joint>{
 			
 			VLine line2Free= new VLine(value.free,value.joint,freeColor,freeSize);
 			children.add(line2Free);
+			
+			if(fixNodeSize>0) {
+				VCircle vc= new VCircle(value.fix,fixNodecolor,fixNodeSize);
+				children.add(vc);
+			}
+			
 		}
 		
 		return children;
