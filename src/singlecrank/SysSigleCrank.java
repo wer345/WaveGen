@@ -27,7 +27,7 @@ public class SysSigleCrank extends Obj {
     
 	public	Point boardFix;
 	
-	boolean hasComp=true;  // define if has a compensation board
+	boolean hasComp=false;  // define if has a compensation board
 	public	ContactBoard compBoard;
 	
 	public	ContactBoard [] boards= new ContactBoard[nofBoard];
@@ -67,7 +67,6 @@ public class SysSigleCrank extends Obj {
 			jSync1.side=Joint.Right;
 			jSync1.a_push=Angle.d2r(a_1);
 			jSync1.l_push=l_push;
-			
 
 			Point pFixSync2=new Point(x_crankCenter+x_sync2,y_crankCenter+y_sync2);
 			Point pJointSync2=new Point();
@@ -99,10 +98,18 @@ public class SysSigleCrank extends Obj {
 			}
 			
 			
-			double boardFix_X=-40;		// point of the fixed point of the first board
-			double boardFix_Y=50;
+			double boardFix_X;		// point of the fixed point of the first board
+			double boardFix_Y;
+			if(hasComp) {
+				boardFix_X=-40;
+				boardFix_Y=50;
+			}else {
+				boardFix_X=55;
+				boardFix_Y=50;
+			} 
 			
 			boardFix= new Point(boardFix_X,boardFix_Y);
+			
 			if(hasComp)
 				compBoard=new ContactBoard(boardFix, crank.free,50,40,Joint.Left);
 			for (int i=0;i<nofBoard;i++) {  // nofBoard

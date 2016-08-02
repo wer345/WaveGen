@@ -10,7 +10,7 @@ public class Joint extends Obj {
 	public Point fix = new Point(0,0);
 	public Point free = new Point(20,0);
 	public Point joint = new Point(10,10);
-	double p,q;
+	public double p,q;
 	
 	public Joint() {
 		
