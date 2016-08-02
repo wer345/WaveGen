@@ -27,7 +27,7 @@ public class View <T> extends VBase {
 	
 	public void draw() {
 		Obj obj = (Obj) value;
-		obj.update();
+//		obj.update();
 		super.draw();
 	}
 	

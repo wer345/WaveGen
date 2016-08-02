@@ -57,6 +57,7 @@ public class SysSigleCrank extends Obj {
 			crank = new Link(new Point(x_crankCenter,y_crankCenter),r_crank,0);
 			//pCrank=new Point(x_crankCenter+r_crank,y_crankCenter);
 			//pCrank=crank.free;
+			addObj(crank);
 			
 			Point pFixSync1=new Point(x_crankCenter-x_sync1,y_crankCenter+y_sync1);
 			Point pJointSync1=new Point();
@@ -76,6 +77,10 @@ public class SysSigleCrank extends Obj {
 			jSync2 = new JointPush(pFixSync2,crank.free,pJointSync2);
 			jSync2.a_push=Angle.d2r(a_2);
 			jSync2.l_push=l_push;
+			
+			addObj(jSync1);
+			addObj(jSync2);
+			
 			double xcList[]=new double[nofBoard];
 			xcList[0]=eq.getValue("XC_Push1");
 			for(int i=1;i<nofBoard;i++) {
@@ -95,6 +100,7 @@ public class SysSigleCrank extends Obj {
 				double a=-Angle.d2r(eq.getValue("A_Push"+(i+1)));
 				double l_swingpush=eq.getValue("R_Push"+(i+1));
 				swings[i]=new JointPush(fix, jsync.push, l_drive, l_push, Joint.Right,a,l_swingpush);
+				addObj(swings[i]);
 			}
 			
 			
@@ -110,8 +116,10 @@ public class SysSigleCrank extends Obj {
 			
 			boardFix= new Point(boardFix_X,boardFix_Y);
 			
-			if(hasComp)
+			if(hasComp) {
 				compBoard=new ContactBoard(boardFix, crank.free,50,40,Joint.Left);
+				addObj(compBoard);
+			}
 			for (int i=0;i<nofBoard;i++) {  // nofBoard
 				Point fix;
 				if(i==0) {
@@ -125,6 +133,7 @@ public class SysSigleCrank extends Obj {
 				double l_board=eq.getValue("L_Board"+(i+1));
 				double l_drive=eq.getValue("L_BdDr"+(i+1));
 				boards[i]=new ContactBoard(fix,swings[i].push,l_drive,l_board,Joint.Left);
+				addObj(boards[i]);
 			}
 			
 		} catch (Exception e) {
@@ -134,13 +143,14 @@ public class SysSigleCrank extends Obj {
 	    
 	}
 	
-	public void moveTo(double x,double y) {
-		crank.free.x=x+x_crankCenter;
-		crank.free.y=y+y_crankCenter;
-	}
+//	public void moveTo(double x,double y) {
+//		crank.free.x=x+x_crankCenter;
+//		crank.free.y=y+y_crankCenter;
+//	}
 
 	public void rotate(double angle) {
 		crank.angle=angle;
+		update();
 	}
 	
 	public static void _main(String[] args) {

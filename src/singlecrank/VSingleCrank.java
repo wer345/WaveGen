@@ -67,10 +67,10 @@ public class VSingleCrank extends VBase {
 
 
 	// give the driving point (x,y)
-	public void draw(double x,double y) {
-		sys.moveTo(x,y);
-		draw();
-	}
+//	public void draw(double x,double y) {
+//		sys.moveTo(x,y);
+//		draw();
+//	}
 	
 	public void rotate(double angle) {
 		sys.rotate(angle);
