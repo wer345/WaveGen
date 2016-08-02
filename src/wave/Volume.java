@@ -214,17 +214,17 @@ public class Volume extends Design{
 			//System.out.printf("%d, %6.2f\n",a,v);
 			int col=0;
 			int r=a+rowcrankAngle;
-			tb.SetItem(r, col++, a);
-			tb.SetItem(r, col++, idxLow);
-			tb.SetItem(r, col++, idxLow2);
-			tb.SetItem(r, col++, v1+v2);
-			tb.SetItem(r, col++, v3);
-			tb.SetItem(r, col++, v);
+			tb.setItem(r, col++, a);
+			tb.setItem(r, col++, idxLow);
+			tb.setItem(r, col++, idxLow2);
+			tb.setItem(r, col++, v1+v2);
+			tb.setItem(r, col++, v3);
+			tb.setItem(r, col++, v);
 
 			if(a<360) {
 				col=colProfile;
 				for(Point p:ps) {
-					tb.SetItem(r, col, p.y-bottomHeight);
+					tb.setItem(r, col, p.y-bottomHeight);
 					col++;
 				}
 			}

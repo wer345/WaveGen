@@ -1,66 +1,20 @@
 package singlecrank;
 
 import physics.ContactBoard;
+import physics.JointPosition;
 import wave.Angle;
 
 
-public class Design
+public class SingleDesign
 {
 	public SysSigleCrank sys;
-	
-	class JointPosition {
-		
-		double crankAngle;
-		double x,y;
-		
-		public JointPosition(double crankAngle, double x, double y) {
-			super();
-			this.crankAngle = crankAngle;
-			this.x = x;
-			this.y = y;
-		}
+	Run run;
 
-		public void set(double crankAngle, double x, double y) {
-			this.crankAngle = crankAngle;
-			this.x = x;
-			this.y = y;
-		}
-		
-		@Override
-		public String toString() {
-			return String.format("%6.1f,%6.2f,%6.2f",Angle.r2d(crankAngle),x,y);
-		}
-		
-	}
-
-	public Design(SysSigleCrank sys) {
+	public SingleDesign(SysSigleCrank sys) {
 		this.sys=sys;
+		run= new Run(sys);
 	}
 	
-	//find the joint that is in lowest position
-	public JointPosition getLowJoint(int resolution,int depth) {
-		ContactBoard bd = sys.boards[depth-1];
-		double step=2*Math.PI/resolution;
-		JointPosition jMin=new JointPosition(0,0,0);
-		for(int a=0;a<=resolution;a++) {
-			double crankAngle=step*a;
-			sys.rotate(crankAngle);
-			sys.update();
-		//	sys.run(depth);
-			//System.out.printf(" %d %s\n",a,bd.boardEnd);
-			double x=bd.joint.x;
-			double y=bd.joint.y;
-			if(a==0) {
-				jMin.set(crankAngle, x, y);
-			}
-			else {
-				if(jMin.y>y) {
-					jMin.set(crankAngle, x, y);
-				}	
-			}
-		}
-		return jMin;
-	}
 
 	/**
 	 * find the length of pushers that let all joint's low position
@@ -76,8 +30,9 @@ public class Design
 			ContactBoard b=sys.boards[i];
 			double length=b.p;
 			double step=0.1*length;
-			int depth=i+1;
-			JointPosition pos=getLowJoint(resolution,depth);
+//			int depth=i+1;
+			JointPosition [] lows=run.getLowJoint(resolution);
+			JointPosition pos=lows[i];
 			double y=pos.y;
 			int lastChange=0; // this value is 1 if the length of pusher increase in the last change
 							// is -1 if the length of pusher decrease in the last change.
@@ -96,7 +51,8 @@ public class Design
 					b.p-=step;
 					lastChange=-1;
 				}
-				pos=getLowJoint(resolution,depth);
+				lows=run.getLowJoint(resolution);
+				pos=lows[i];
 				y=pos.y;	
 			}
 			lengths[i]=b.p;
@@ -105,23 +61,6 @@ public class Design
 		return lengths;
 	}
 	
-//	void showLowjoints()
-//	{
-//		JointPosition lastJoint=null;
-//		for (int depth=1;depth<=5;depth++) {
-//			JointPosition jmin=getLowJoint(360, depth);
-//			System.out.printf(" min = %s",jmin);
-//			if(lastJoint!=null) {
-//				double da=Angle.r2d(lastJoint.crankAngle-jmin.crankAngle);
-//				if(da<0)
-//					da+=360;
-//				System.out.printf("  diff = %6.1f,%6.2f,%6.2f\n",da,jmin.x-lastJoint.x,jmin.y-lastJoint.y);
-//			}
-//			else 
-//				System.out.printf("\n");
-//			lastJoint=jmin;
-//		}
-//	}
 
 	/**
 	 * Set all pusher's length to let all low joint  reach the bottom line
@@ -180,8 +119,11 @@ public class Design
 	public static void main(String[] args) {
 		
 		SysSigleCrank sys = new SysSigleCrank();
-		Design wd= new Design(sys);
-		double [] lengths = wd.getPusherLengths(40,360);
+		SingleDesign wd= new SingleDesign(sys);
+		double [] lengths = wd.getPusherLengths(43,360);
+		for(double l:lengths) {
+			System.out.printf("lenghth %6.2f\n", l);
+		}
 		//wd.findProfile();
 		//wd.showProfile();
 	}

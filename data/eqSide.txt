@@ -37,7 +37,6 @@
 "R_Push5"=30
 "D_Push5"=55
 
-
 "IDCenter_sync"=10
 "ID1_sync"=10
 "ID2_sync"=10
@@ -47,16 +46,16 @@
 "ID2_Push"=10
 
 "L_Board1"=60
-"L_BdDr1"=90
+"L_BdDr1"=90.35
 
 "L_Board2"=60
-"L_BdDr2"=90
+"L_BdDr2"=85.35
 
 "L_Board3"=60
-"L_BdDr3"=90
+"L_BdDr3"=79.29
 
 "L_Board4"=60
-"L_BdDr4"=90
+"L_BdDr4"=83.25
 
 "L_Board5"=60
-"L_BdDr5"=90
+"L_BdDr5"=90.50

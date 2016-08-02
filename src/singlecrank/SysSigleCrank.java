@@ -111,7 +111,7 @@ public class SysSigleCrank extends Obj {
 				boardFix_Y=50;
 			}else {
 				boardFix_X=55;
-				boardFix_Y=50;
+				boardFix_Y=58;
 			} 
 			
 			boardFix= new Point(boardFix_X,boardFix_Y);

@@ -15,7 +15,7 @@ public class DataTable {
 	public List <List <String>> table;
 	public int rowSize;
 	public int columnSize;
-	public boolean numberEncoded=true; // if true, put character '~' in the front of a number cell when output to a file
+	public boolean numberEncoded=false; // if true, put character '~' in the front of a number cell when output to a file
 	public DataTable()
 	{
 		table= new ArrayList<List <String>>();
@@ -73,12 +73,17 @@ public class DataTable {
 		return result;
 	}
 
-	public void SetItem(int rowIndex,int columnIndex,double value)
+	public void setItem(int rowIndex,int columnIndex,double value)
 	{
-		SetItem(rowIndex,columnIndex,String.format("%7.3f", value));
+		setItem(rowIndex,columnIndex,String.format("%7.3f", value));
 	}
 	
-	public void SetItem(int rowIndex,int columnIndex,String value)
+	public void setItem(int rowIndex,int columnIndex,int value)
+	{
+		setItem(rowIndex,columnIndex,String.format("%d", value));
+	}
+	
+	public void setItem(int rowIndex,int columnIndex,String value)
 	{
 		if(columnIndex>=columnSize)
 			extendColumn(1+columnIndex-columnSize);
@@ -92,6 +97,11 @@ public class DataTable {
 				row.set(columnIndex,value);
 			}
 		}
+	}
+
+	public void setItems(int rowIndex,int columnIndex,String... values) {
+		for(String v:values)
+			setItem(rowIndex,columnIndex++,v);
 	}
 	
 	public boolean isNumber(String text)
@@ -625,16 +635,16 @@ public class DataTable {
 	public static void UnitTest_setData() {
 		System.out.printf("UnitTest_setData begin");
 		DataTable data= new DataTable();
-		data.SetItem(10, 8, "Item(10,8)");
+		data.setItem(10, 8, "Item(10,8)");
 		for(int i=0;i<=10;i++)
-			data.SetItem(i, i, "V"+i);
-		data.SetItem(0, 0, ",+,");
-		data.SetItem(0, 1, ",");
-		data.SetItem(0, 2, ",,");
-		data.SetItem(0, 3, "\"");
-		data.SetItem(0, 4, "\"\"");
-		data.SetItem(0, 5, "\"+\"");
-		data.SetItem(1 ,0, "line1\nline2\nline3");
+			data.setItem(i, i, "V"+i);
+		data.setItem(0, 0, ",+,");
+		data.setItem(0, 1, ",");
+		data.setItem(0, 2, ",,");
+		data.setItem(0, 3, "\"");
+		data.setItem(0, 4, "\"\"");
+		data.setItem(0, 5, "\"+\"");
+		data.setItem(1 ,0, "line1\nline2\nline3");
 		
 //		data.SetItem(0, 0, "Item(10,8)");
 		data.printData();
@@ -646,10 +656,10 @@ public class DataTable {
 	public static void UnitTest_Number() {
 		System.out.printf("UnitTest_Number begin");
 		DataTable data= new DataTable();
-		data.SetItem(0, 0, "ABC");
-		data.SetItem(0, 1, "000001234");
-		data.SetItem(1, 0, "Big number");
-		data.SetItem(1, 1, "123400000000000");
+		data.setItem(0, 0, "ABC");
+		data.setItem(0, 1, "000001234");
+		data.setItem(1, 0, "Big number");
+		data.setItem(1, 1, "123400000000000");
 		
 		data.SaveToCSV("c:\\pgxdata\\test_number.csv");
 
