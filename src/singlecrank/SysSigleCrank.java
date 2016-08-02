@@ -32,12 +32,34 @@ public class SysSigleCrank extends Obj {
 	
 	public	ContactBoard [] boards= new ContactBoard[nofBoard];
     
+	// find the length of drive link. When the crank rotate to 45deg, sync reaches the max swing angle a_max,
+	// When crank rotates to 180+45deg, the sync reaches the max swing angle on the other side.
+	// r_crank -- the radius of crank
+	// pCrank -- position of crank center
+	// pSync -- position of sync center
+	// r_sync -- the radius of sync
+	// a_max -- the max angle of swing 
+	
+	public double getDriveLinkLength(
+			double r_crank,
+			double xSync, double ySync,
+			double r_sync,
+			double a_max
+		) {
+		double ds=r_sync*Math.cos(a_max);
+		double es=r_sync*Math.sin(a_max);
+		double cs=Math.sqrt(xSync*xSync+ySync*ySync-ds*ds);
+		double l=cs+es-r_crank;
+		return l;
+	}
+	
+	
 	public	SysSigleCrank(){
 		Equations eq= new Equations();
 		eq.Load("data\\eqSide.txt");
 		try {
 			
-			r_crank=eq.getValue("R_Crank");
+			r_crank=eq.getValue("R_Crank");  // radius of crank
 			double l_push=eq.getValue("R_Sync");
 			double r_Sync=eq.getValue("R_Crank");
 			double l1_free=eq.getValue("L_Sync1Drive");
@@ -53,6 +75,19 @@ public class SysSigleCrank extends Obj {
 			
 			double x_sync2=0.707*(l2_free+r_Sync);
 			double y_sync2=0.707*(l2_free-r_Sync);
+			
+			x_sync1=70;
+			y_sync1=42;
+			
+			x_sync2=x_sync1;
+			y_sync2=y_sync1;
+
+			double a_max=Angle.d2r(45);
+			l1_fix=r_crank/Math.sin(a_max);
+			
+			l1_free=getDriveLinkLength(r_crank,x_sync1,y_sync1,
+					l1_fix,a_max);
+			
 			
 			crank = new Link(new Point(x_crankCenter,y_crankCenter),r_crank,0);
 			//pCrank=new Point(x_crankCenter+r_crank,y_crankCenter);
@@ -143,11 +178,6 @@ public class SysSigleCrank extends Obj {
 	    
 	}
 	
-//	public void moveTo(double x,double y) {
-//		crank.free.x=x+x_crankCenter;
-//		crank.free.y=y+y_crankCenter;
-//	}
-
 	public void rotate(double angle) {
 		crank.angle=angle;
 		update();
