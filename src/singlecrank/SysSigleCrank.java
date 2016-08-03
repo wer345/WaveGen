@@ -66,35 +66,40 @@ public class SysSigleCrank extends Obj {
 			double l1_fix=eq.getValue("LD_Sync1Drive");
 			double a_1=eq.getValue("A_Sync1");
 
-			double l2_free=eq.getValue("L_Sync2Drive");
+//			double l2_free=eq.getValue("L_Sync2Drive");
 //			double l2_fix=eq.getValue("LD_Sync2Drive");
 			double a_2=eq.getValue("A_Sync2");
 
-			double x_sync1=0.707*(l1_free+r_Sync);
-			double y_sync1=0.707*(l1_free-r_Sync);
+			double x_sync=eq.getValue("XD_Sync1");
+			double y_sync=eq.getValue("YD_Sync1");
 			
-			double x_sync2=0.707*(l2_free+r_Sync);
-			double y_sync2=0.707*(l2_free-r_Sync);
+//			double x_sync2=0.707*(l2_free+r_Sync);
+//			double y_sync2=0.707*(l2_free-r_Sync);
 			
-			x_sync1=70;
-			y_sync1=42;
 			
-			x_sync2=x_sync1;
-			y_sync2=y_sync1;
+//			x_sync2=x_sync1;
+//			y_sync2=y_sync1;
 
-			double a_max=Angle.d2r(45);
-			l1_fix=r_crank/Math.sin(a_max);
-			
-			l1_free=getDriveLinkLength(r_crank,x_sync1,y_sync1,
-					l1_fix,a_max);
-			
+			boolean findDriveLength=false;
+			if(findDriveLength) {
+				x_sync=70;
+				y_sync=42;
+				double a_max_deg=45;
+				double a_max=Angle.d2r(a_max_deg);
+				l1_fix=r_crank/Math.sin(a_max);
+				
+				l1_free=getDriveLinkLength(r_crank,x_sync,y_sync,
+						l1_fix,a_max);
+				System.out.printf("Found Drive length for a_max as %5.2f: Sync R=%6.2f, Drive length=%6.2f\n", 
+						a_max_deg,l1_fix,l1_free);
+			}
 			
 			crank = new Link(new Point(x_crankCenter,y_crankCenter),r_crank,0);
 			//pCrank=new Point(x_crankCenter+r_crank,y_crankCenter);
 			//pCrank=crank.free;
 			addObj(crank);
 			
-			Point pFixSync1=new Point(x_crankCenter-x_sync1,y_crankCenter+y_sync1);
+			Point pFixSync1=new Point(x_crankCenter-x_sync,y_crankCenter+y_sync);
 			Point pJointSync1=new Point();
 			// get the location of jointP1 on the right side
 			Geo.getJoint(null,pJointSync1,  crank.free, pFixSync1, l1_free, l1_fix);
@@ -104,7 +109,7 @@ public class SysSigleCrank extends Obj {
 			jSync1.a_push=Angle.d2r(a_1);
 			jSync1.l_push=l_push;
 
-			Point pFixSync2=new Point(x_crankCenter+x_sync2,y_crankCenter+y_sync2);
+			Point pFixSync2=new Point(x_crankCenter+x_sync,y_crankCenter+y_sync);
 			Point pJointSync2=new Point();
 			// get the location of jointP2 on the left side
 			Geo.getJoint(pJointSync2, null, crank.free, pFixSync2, l1_free, l1_fix);
@@ -146,7 +151,7 @@ public class SysSigleCrank extends Obj {
 				boardFix_Y=50;
 			}else {
 				boardFix_X=55;
-				boardFix_Y=58;
+				boardFix_Y=64;
 			} 
 			
 			boardFix= new Point(boardFix_X,boardFix_Y);

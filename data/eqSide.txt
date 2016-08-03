@@ -1,26 +1,24 @@
 ﻿"R_Crank"= 20
 "R_Sync"= 40
-"L_Sync1Drive"=80
+"L_Sync1Drive"=79.15
 "A_Sync1"=135
-"XD_Sync1"= 0.707*("L_Sync1Drive"+"R_Sync")
-"YD_Sync1"= 0.707*("L_Sync1Drive"-"R_Sync")
-"LD_Sync1Drive"=40
+"XD_Sync1"= 70
+"YD_Sync1"= 42
+"LD_Sync1Drive"=28.28
 
 "L_Sync2Drive"=80
-"A_Sync2"=240
-"XD_Sync2"= 0.707*("L_Sync2Drive"+"R_Sync")
-"YD_Sync2"= 0.707*("L_Sync2Drive"-"R_Sync")
+"A_Sync2"=225
 "LD_Sync2Drive"=40
 
-"XC_Push1"=140
+"XC_Push1"=132
 "A_Push1"=270
 "R_Push1"=30
-"D_Push1"=55
+"D_Push1"=58
 
 "XC_Push2"="XC_Push1"+"D_Push1"
 "A_Push2"=270	
 "R_Push2"=30
-"D_Push2"=20
+"D_Push2"=17
 
 "XC_Push3"="XC_Push2"+"D_Push2"
 "A_Push3"=90	
@@ -30,7 +28,7 @@
 "XC_Push4"="XC_Push3"+"D_Push3"
 "A_Push4"=90	
 "R_Push4"=30
-"D_Push4"=105
+"D_Push4"=110
 
 "XC_Push5"="XC_Push4"+"D_Push4"
 "A_Push5"=270	
@@ -46,16 +44,16 @@
 "ID2_Push"=10
 
 "L_Board1"=60
-"L_BdDr1"=90.35
+"L_BdDr1"=77.74
 
 "L_Board2"=60
-"L_BdDr2"=85.35
+"L_BdDr2"=77.87
 
 "L_Board3"=60
-"L_BdDr3"=79.29
+"L_BdDr3"=78.00
 
 "L_Board4"=60
-"L_BdDr4"=83.25
+"L_BdDr4"=78.02
 
 "L_Board5"=60
-"L_BdDr5"=90.50
+"L_BdDr5"=77.98

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import physics.ContactBoard;
 import physics.Joint;
 import physics.JointPush;
+import physics.Link;
 import physics.Point;
 import view.UI;
 import view.VBase;
@@ -59,12 +60,18 @@ public class VSingleCrank extends VBase {
 	    	VContactBoard vbd= new VContactBoard(bd);
 	    	children.add(vbd);
 	    }
-	    
+
+	    double bottomHeight=43;
+	    double rightEdge=sys.swings[sys.nofBoard-1].fix.x;
+		Link btm = new Link(new Point(0,bottomHeight),rightEdge,0);
+		VLink vbtm= new VLink(btm);
+		vbtm.size=1;
+		vbtm.color=Color.black;
+		children.add(vbtm);
 	    // set up for all components
 	    for(VBase vb:children)
 	    	vb.setUI(ui);
 	}
-
 
 	// give the driving point (x,y)
 //	public void draw(double x,double y) {
