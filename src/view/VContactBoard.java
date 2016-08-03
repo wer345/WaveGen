@@ -36,6 +36,11 @@ public class VContactBoard extends View <ContactBoard>{
 			
 			VLine line2Free= new VLine(value.free,value.joint,freeColor,freeSize);
 			children.add(line2Free);
+			
+			VPolyline vpl= new VPolyline(value.profile); 
+			vpl.setColor(Color.red);
+			vpl.setSize(3);
+			children.add(vpl);
 		}
 		
 		return children;

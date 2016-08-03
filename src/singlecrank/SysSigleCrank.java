@@ -157,7 +157,7 @@ public class SysSigleCrank extends Obj {
 			boardFix= new Point(boardFix_X,boardFix_Y);
 			
 			if(hasComp) {
-				compBoard=new ContactBoard(boardFix, crank.free,50,40,Joint.Left);
+				compBoard=new ContactBoard(boardFix, crank.free,50,40,Joint.Left,0);
 				addObj(compBoard);
 			}
 			for (int i=0;i<nofBoard;i++) {  // nofBoard
@@ -172,7 +172,12 @@ public class SysSigleCrank extends Obj {
 					fix=boards[i-1].joint;
 				double l_board=eq.getValue("L_Board"+(i+1));
 				double l_drive=eq.getValue("L_BdDr"+(i+1));
-				boards[i]=new ContactBoard(fix,swings[i].push,l_drive,l_board,Joint.Left);
+				int nofProfilePoints;
+				if(i==0)
+					nofProfilePoints=0;
+				else
+					nofProfilePoints=20;
+				boards[i]=new ContactBoard(fix,swings[i].push,l_drive,l_board,Joint.Left,nofProfilePoints);
 				addObj(boards[i]);
 			}
 			

@@ -19,11 +19,13 @@ import view.VLink;
 public class VSingleCrank extends VBase {
 	
 	SysSigleCrank sys;
+	SingleDesign design;
 
 	public VSingleCrank(UI ui) {
 		super();
 		sys = new SysSigleCrank();
-		
+		design = new SingleDesign(sys);
+		design.findProfile();
 		//give view crank
 		
 		//VLine crank = new VLine(new Point(sys.x_crankCenter,sys.y_crankCenter),sys.crank.free,Color.red,6);

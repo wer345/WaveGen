@@ -145,7 +145,7 @@ public class Run {
 	static public void main(String [] args) {
 		Run r=new Run(new SysSigleCrank());
 		r.showLows();
-		//r.saveNodes(180);
+		r.saveNodes(180);
 		//r.saveAngles(120);
 		
 	}
