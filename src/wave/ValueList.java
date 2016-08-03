@@ -6,7 +6,7 @@ public class ValueList  extends ArrayList <Double>{
 
 	private static final long serialVersionUID = 1L;
 
-	ValueList() {
+	public ValueList() {
 		super();
 	}
 	

@@ -84,7 +84,7 @@ public class SingleDesign
 			sys.rotate(crankAngle);
 			for(int i=1;i<sys.nofBoard;i++) {
 				ContactBoard bd = sys.boards[i];
-				bd.alignProfileHeight(43);
+				bd.alignProfileHeight(sys.bottomHeight);
 			}
 		}
 	}
@@ -109,7 +109,7 @@ public class SingleDesign
 		
 		SysSigleCrank sys = new SysSigleCrank();
 		SingleDesign wd= new SingleDesign(sys);
-		double [] lengths = wd.getPusherLengths(43,360);
+		double [] lengths = wd.getPusherLengths(sys.bottomHeight,360);
 		for(double l:lengths) {
 			System.out.printf("length %6.2f\n", l);
 		}

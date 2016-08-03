@@ -32,6 +32,8 @@ public class SysSigleCrank extends Obj {
 	
 	public	ContactBoard [] boards= new ContactBoard[nofBoard];
     
+	public double bottomHeight=43;
+	
 	// find the length of drive link. When the crank rotate to 45deg, sync reaches the max swing angle a_max,
 	// When crank rotates to 180+45deg, the sync reaches the max swing angle on the other side.
 	// r_crank -- the radius of crank
