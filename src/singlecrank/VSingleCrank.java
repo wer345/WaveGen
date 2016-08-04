@@ -55,7 +55,7 @@ public class VSingleCrank extends VBase {
 	    }
 	    
 	    if(sys.hasComp) {
-		    VContactBoard comp= new VContactBoard(sys.compBoard);
+	    	VJointPush comp= new VJointPush(sys.compBoard);
 		    children.add(comp);
 	    }
 	    for(ContactBoard bd:sys.boards) {

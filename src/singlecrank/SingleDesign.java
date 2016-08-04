@@ -114,8 +114,8 @@ public class SingleDesign
 			System.out.printf("length %6.2f\n", l);
 		}
 		
-		wd.findProfile();
-		wd.showProfile();
+		//wd.findProfile();
+		//wd.showProfile();
 		//wd.findProfile();
 		//wd.showProfile();
 	}

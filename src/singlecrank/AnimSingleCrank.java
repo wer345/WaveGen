@@ -18,18 +18,28 @@ public class AnimSingleCrank extends UI {
 		
 		frametime=40;	// minisecond per frame
 	    //frame.setSize(800, 600);
-		int pixWindowX=1400;
-		int pixWindowY=600;
+		int pixWindowWidth=1400;
+		int pixWindowHeight=600;
+		int pixWindowPosX=400;
+		int pixWindowPosY=600;
+
+		boolean smallWindows=true;
+		if(smallWindows) {
+			pixWindowWidth=700;
+			pixWindowHeight=250;
+			pixWindowPosX=1000;
+			pixWindowPosY=900;
+		}
 		
 		double originX=0.25; // x position of origin in the Window, 0 - left edge, 1 - right edge
 		double originY=0.0; // y position of origin in the Window, 0 - bottom edge, 1 - top edge
 		
 		double physicXsize=500; // the physic size in x the windows shows.
 		
-		setWindow(pixWindowX,pixWindowY,400,600);
+		setWindow(pixWindowWidth,pixWindowHeight,pixWindowPosX,pixWindowPosY);
 		
-		double windowYXRate=pixWindowY;
-		windowYXRate/=pixWindowX;
+		double windowYXRate=pixWindowHeight;
+		windowYXRate/=pixWindowWidth;
 	    VBase.rangeDefault= new Range(-originX*physicXsize,-originY*physicXsize*windowYXRate,
 	    		(1-originX)*physicXsize,(1-originY)*physicXsize*windowYXRate);
 		

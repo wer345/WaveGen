@@ -11,6 +11,7 @@ import wave.Angle;
 import wave.Geo;
 
 public class SysSigleCrank extends Obj {
+	String defaultCaseFile="data\\eqSideComp.txt";
 	
 	double r_crank;
 	double x_crankCenter=0;
@@ -28,7 +29,7 @@ public class SysSigleCrank extends Obj {
 	public	Point boardFix;
 	
 	boolean hasComp=false;  // define if has a compensation board
-	public	ContactBoard compBoard;
+	public	JointPush compBoard;
 	
 	public	ContactBoard [] boards= new ContactBoard[nofBoard];
     
@@ -54,14 +55,26 @@ public class SysSigleCrank extends Obj {
 		double l=cs+es-r_crank;
 		return l;
 	}
-	
-	
+
 	public	SysSigleCrank(){
+		setFromFile(defaultCaseFile);
+	}
+	
+	public	SysSigleCrank(String caseFile){
+		setFromFile(caseFile);
+	}
+	
+	
+	public	void setFromFile(String caseFile){
 		Equations eq= new Equations();
-		eq.Load("data\\eqSide.txt");
+		eq.Load(caseFile);
 		try {
 			
 			r_crank=eq.getValue("R_Crank");  // radius of crank
+			double vHasComp=eq.getValue("HasComp");
+			if(vHasComp>0.5)
+				hasComp=true;
+			
 			double l_push=eq.getValue("R_Sync");
 			double r_Sync=eq.getValue("R_Crank");
 			double l1_free=eq.getValue("L_Sync1Drive");
@@ -74,6 +87,14 @@ public class SysSigleCrank extends Obj {
 
 			double x_sync=eq.getValue("XD_Sync1");
 			double y_sync=eq.getValue("YD_Sync1");
+
+			double boardFix_X=eq.getValue("X_BoardFix");		// point of the fixed point of the first board
+			double boardFix_Y=eq.getValue("Y_BoardFix");
+			
+			double l_compDrive=eq.getValue("L_compDrive");
+			double r_compDrive=eq.getValue("R_compDrive");
+			double r_compPush=eq.getValue("R_compPush");
+			double a_compPush=Angle.d2r(eq.getValue("A_compPush"));
 			
 //			double x_sync2=0.707*(l2_free+r_Sync);
 //			double y_sync2=0.707*(l2_free-r_Sync);
@@ -146,27 +167,31 @@ public class SysSigleCrank extends Obj {
 			}
 			
 			
-			double boardFix_X;		// point of the fixed point of the first board
-			double boardFix_Y;
-			if(hasComp) {
-				boardFix_X=-40;
-				boardFix_Y=50;
-			}else {
-				boardFix_X=55;
-				boardFix_Y=64;
-			} 
+			
+//			if(hasComp) {
+//				boardFix_X=-40;
+//				boardFix_Y=50;
+//			}else {
+//				boardFix_X=55;
+//				boardFix_Y=64;
+//			} 
 			
 			boardFix= new Point(boardFix_X,boardFix_Y);
 			
 			if(hasComp) {
-				compBoard=new ContactBoard(boardFix, crank.free,50,40,Joint.Left,0);
+				//DEBUG
+				//a_compPush=0;
+				compBoard=new JointPush(boardFix, crank.free,l_compDrive,r_compDrive,Joint.Left,a_compPush,r_compPush);
+				compBoard.name="comp";
 				addObj(compBoard);
 			}
+			
 			for (int i=0;i<nofBoard;i++) {  // nofBoard
 				Point fix;
+				
 				if(i==0) {
 					if(hasComp)
-						fix=compBoard.joint;
+						fix=compBoard.push;
 					else
 						fix=boardFix;
 				}
@@ -196,7 +221,9 @@ public class SysSigleCrank extends Obj {
 	}
 	
 	public static void _main(String[] args) {
-		SysSigleCrank sys=new SysSigleCrank();
+		String caseFile="data\\eqSideComp.txt";
+
+		SysSigleCrank sys=new SysSigleCrank(caseFile);
 		System.out.printf("R rank is  %f\n", sys.r_crank);
 
 	}

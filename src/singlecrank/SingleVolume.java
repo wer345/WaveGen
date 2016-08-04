@@ -181,20 +181,12 @@ public class SingleVolume {
 			if(idxLow+50<pointList.length)
 				idxLow2=findLowestIndex(pointList,idxLow+50);
 			
-//			double yLow=pointList[0].y;
-//			for(int i=1;i<pointList.length;i++) {
-//				if(yLow>pointList[i].y) {
-//					yLow=pointList[i].y;
-//					idxLow=i;
-//				}
-//			}
-			
 
 			double volComp=0;
 			double volGuide=0;
 			//v2=(bd.boardEnd.x-bd.boardStart.x)*(0.5*(bd.boardEnd.y+bd.boardStart.y)-bottomHeight);
 			if(sys.hasComp) {
-				volComp=(sys.compBoard.joint.x-sys.compBoard.fix.x)*(0.5*(sys.compBoard.joint.y+sys.compBoard.fix.y)-sys.bottomHeight);
+				volComp=(sys.compBoard.push.x-sys.compBoard.fix.x)*(0.5*(sys.compBoard.push.y+sys.compBoard.fix.y)-sys.bottomHeight);
 			}
 			
 			ContactBoard bd=sys.boards[0];

@@ -1,4 +1,5 @@
-﻿"R_Crank"= 20
+﻿"HasComp"=0
+"R_Crank"= 20
 "R_Sync"= 40
 "L_Sync1Drive"=79.15
 "A_Sync1"=135
@@ -42,6 +43,10 @@
 "IDCenter_Push"=10
 "ID1_Push"=10
 "ID2_Push"=10
+
+"X_BoardFix"=55
+"Y_BoardFix"=64
+
 
 "L_Board1"=60
 "L_BdDr1"=77.74
