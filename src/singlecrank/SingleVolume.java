@@ -275,6 +275,13 @@ public class SingleVolume {
 
 		tb.SaveToCSV("volume_aligned.csv");
 		
+		FreqsLinear fsGuide = new FreqsLinear(lstVolGuide,5);
+		FreqsLinear fsProfile = new FreqsLinear(lstVolProfile,5);
+		FreqsLinear fsAll = new FreqsLinear(lstVolAll,5);
+		System.out.printf("freqs Guide =%s\n", fsGuide);
+		System.out.printf("freqs Profile =%s\n", fsProfile);
+		System.out.printf("freqs All =%s\n", fsAll);
+		
 //		for(Double va:vols) {
 //			System.out.printf("%6.2f\n",va);
 //		}

@@ -47,7 +47,8 @@ public class SinFitVol {
 	    	s2.add(Math.sin(2*step*i));
 	    	c2.add(Math.cos(2*step*i));
 	    }
-	    ValueList xs= new ValueList(n,0.0,1.0);
+	    ValueList xs= new ValueList();
+	    xs.setLinear(n,0.0,1.0);
 	    
 	    boolean doSecond=true;
 		int size=4;

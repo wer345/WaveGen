@@ -1,15 +1,42 @@
-package wave;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+package singlecrank;
 
 import Jama.Matrix;
+import wave.ValueList;
 
+public class FreqsLinear extends Freqs {
+	double k=0;
+	
+	public FreqsLinear() {
+		
+	}
+	
+	public FreqsLinear(ValueList ys,int level) {
+		ValueList vs= getXSinParams(ys, level);
+		mean=vs.get(0);
+		k=vs.get(1);
+		for(int i=2;i<vs.size();i+=2) {
+			addFreq(new Freq(vs.get(i),vs.get(i+1)));
+		}
+	}
 
-public class SinFit {
-
+	public Samples generateSamples(int nofSamples) {
+		Samples ss=super.generateSamples(nofSamples);
+		double step=2*Math.PI/nofSamples;
+		for(int i=0;i<nofSamples;i++) {
+			double a=i*step;
+			ss.add(i,k*a);
+		}
+		return ss;
+	}
+	
+	public String toString() {
+		String rst=String.format("%2.4fm, %2.4fk", mean,k);
+		for(Freq f:fs) {
+			rst+=", "+f.toString();
+		}
+		return rst;
+	}
+	
 	/** get parameters with X in it
 	 * @param ys  -- sample data
 	 * @param level -- the level of parameter
@@ -44,7 +71,7 @@ public class SinFit {
 		Matrix A = new Matrix(mtxSize,mtxSize);
 		Matrix b = new Matrix(mtxSize,1);
 		
-		//Set first equition 
+		//Set first equation 
 		A.set(0, 0, n);
 		A.set(0, 1, xs.sum());
 		for(int i=2;i<mtxSize;i++) {
@@ -92,96 +119,27 @@ public class SinFit {
 		
 		ValueList rst=new ValueList();
 		for(int irow=0;irow<mtxSize;irow++) {
-			rst.add(x.get(irow,0));
+			if(irow==1) 
+				rst.add(x.get(irow,0)*n/(2*Math.PI));
+			else
+				rst.add(x.get(irow,0));
 		}
 		
 		return rst;
 	}
-
-	
-	
-	public double verify(ValueList ys,ValueList params)
-	{
-		int err=0;
-		int level= (params.size()-2)/2;
-		int n=ys.size();
-	    double step=2*Math.PI/n;
-		for(int i=0;i<n;i++) {
-			double x=step*i;
-			double v=params.get(0)+params.get(1)*i;
-			for(int idxLvl=0;idxLvl<level;idxLvl++) {
-				int idxP=2+2*idxLvl;
-				double a=(1+idxLvl)*x;
-				v+=params.get(idxP)*Math.sin(a)+params.get(idxP+1)*Math.cos(a);
-			}
-			double e=v-ys.get(i);
-			System.out.printf("%d,  %6.2f,  %6.2f,  %6.4f\n", i,ys.get(i), v,e);			
-		}
-		return err;
-	}
-	
-
-	public static ValueList getValues(int nofSample,ValueList params) {
-		ValueList rst= new ValueList();
-	    double step=2*Math.PI/nofSample;
-	    int level= (params.size()-2)/2;
-	    
-		for(int i=0;i<nofSample;i++) {
-			double x=step*i;
-			double v=params.get(0)+params.get(1)*i;
-			for(int idxLvl=0;idxLvl<level;idxLvl++) {
-				int idxP=2+2*idxLvl;
-				double a=(1+idxLvl)*x;
-				v+=params.get(idxP)*Math.sin(a)+params.get(idxP+1)*Math.cos(a);
-			}
-			rst.add(v);
-		}
-		return rst;
-	}
-	
-	
-	public void test() {
-		Scanner scan;
-	    File file = new File("data\\volume_360.txt");
-	    ValueList ys= new ValueList();
-	    try {
-	        scan = new Scanner(file);
-
-	        while(scan.hasNextDouble())
-	        {
-	        	ys.add(scan.nextDouble());
-	        }
-	        
-	    } catch (FileNotFoundException e1) {
-	            e1.printStackTrace();
-	    }
-
-	    ValueList params= getXSinParams(ys,5);
-	    System.out.printf("%s\n", params);
-	    ValueList p = new ValueList(3227.56,  -7.05, 524.63, -284.26,   7.47, -19.42); 
-	}
-	
-	
-	public void testSin() {
-		Scanner scan;
-		
-		ValueList params_1 = new ValueList(1.0  ,   1 , 0.5,  0.1,0.2,  0.1,0.2);
-		//params_1 = new ValueList(1.0  , 0.0 , 1.0, 0.0 , 1.0);
-		
-	    ValueList ys= Spectrum.getData(params_1,360) ;
-
-	    ValueList params= getXSinParams(ys,3);
-	    
-	    System.out.printf("%s\n", params.toString("8.6"));
-//	    ValueList p = new ValueList(3227.56,  -7.05, 524.63, -284.26,   7.47, -19.42); 
-	 //   verify(ys,params);
-	}
-	
-
 	
 	public static void main(String[] args) {
-		SinFit sf= new SinFit();
-		sf.testSin();
+		FreqsLinear fs= new FreqsLinear();
+		fs.mean=10;
+		fs.k=0.123;
+//		fs.addFreq(new Freq(1.5,1));
+//		fs.addFreq(new Freq(0.6,0.7));
+		fs.addFreqs(1.5,1,0.6,0.7);
+		Samples ss = fs.generateSamples(8);
+		System.out.printf("samples=%s\n", ss);
+		FreqsLinear fs1=new FreqsLinear(ss,2);
+		System.out.printf("get freqs from sample=%s\n", fs1);
 	}
+	
 	
 }
